@@ -43,5 +43,14 @@ These validators uses either allowlist or blocklist.\
       - Example results are: ![image](https://github.com/user-attachments/assets/ffc59d96-28ea-4049-bac4-0b6b17942cb8)
     - To look for pages that contain Absolute URLs in their URL parameter, make use of `inurl: %3Dhttp site:example.com` or `inurl: %3Dhttps site:example.com`.
       - Example results are: ![image](https://github.com/user-attachments/assets/07d96a3c-bde6-4945-a794-076f213892a6)
+    - Search with common redirect parameters such as the following:
+      ![image](https://github.com/user-attachments/assets/fb2c9327-8688-4cee-9ae6-a9119e14414c)
+- Test for parameter-based open redirects
+  - Insert a random hostname into the redirect parameter, then see if the site redirects you automatically to the specified hostname.
+    ![image](https://github.com/user-attachments/assets/f4b44b6b-fa33-4698-a887-1e87b1063d41)
+  
+- Test for referer-based open redirects
+  - Set up a page on a domain you own and contain an anchor tag inside it that refer to the login page of your target site `<a href="http://example.com">Click link to login to example.com</a>` and then refreshes the page, click on the link to log in and wait to see if you are redirected to your site.       
+
     
    
