@@ -19,3 +19,17 @@ These validators uses either allowlist or blocklist.\
 <mark>Blocklist</mark> -> checks whether the redirect URL contains malicious hostnames or special characters used in attacks, then it blocks the request.\
 >[!NOTE]
 >Validators can hardly identify hostname portions of the URL as decoding and parsing URL is difficult to get right, which makes open redirect one of the most common web vulnerabilities. 
+
+# Hunting for Open Redirects
+- Look for redirect parameters
+  - Open proxy while browsing the website
+  - Check http history and look for any parameters contains relative or absolute URLs
+    - <mark> Absolute URL </mark> -> URL is complete and contains all information neccessary to locate a resource `https://example.com/login`\
+    - <mark>  Relative URL </mark> -> Contains only the path component and must be concatenated to a URL by the server `/login` and some omits the (/) .\
+  - Example on redirect parameters: ![image](https://github.com/user-attachments/assets/a9a133ff-c27f-455d-a024-78565ae9d098) </br>
+  - >[!Note]
+    > Not all redirect parameters have straightforward names such as `redirect` and `redir`.\
+    > Pages that do not have redirect parameters but still redirects users automatically are candidates for referer-based open redirects and to find them, focus on 3XX status codes such as 301         and 302 codes.\
+  - 
+- Use google dorks to find additional redirect params
+  - test
