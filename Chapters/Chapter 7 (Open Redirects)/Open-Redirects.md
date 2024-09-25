@@ -16,7 +16,7 @@ Another common open-redirect technique is the referer-based open redirect.</br> 
 Websites implement URL validators to ensure user-provided redirect points to a legitimate location.\
 These validators uses either allowlist or blocklist.\
 <mark>Allowlist</mark> -> checks whether the hostname portion of the URL matches allowed hostnames, then the redirect goes through.\
-<mark>Blocklist</mark> -> checks whether the redirect URL contains malicious hostnames or special characters used in attacks, then it blocks the request.\
+<mark>Blocklist</mark> -> checks whether the redirect URL contains malicious hostnames or special characters used in attacks, then it blocks the request.
 >[!NOTE]
 >Validators can hardly identify hostname portions of the URL as decoding and parsing URL is difficult to get right, which makes open redirect one of the most common web vulnerabilities. 
 
@@ -24,12 +24,24 @@ These validators uses either allowlist or blocklist.\
 - Look for redirect parameters
   - Open proxy while browsing the website
   - Check http history and look for any parameters contains relative or absolute URLs
-    - <mark> Absolute URL </mark> -> URL is complete and contains all information neccessary to locate a resource `https://example.com/login`\
-    - <mark>  Relative URL </mark> -> Contains only the path component and must be concatenated to a URL by the server `/login` and some omits the (/) .\
+    - <mark> Absolute URL </mark> -> URL is complete and contains all information neccessary to locate a resource `https://example.com/login`
+    - <mark>  Relative URL </mark> -> Contains only the path component and must be concatenated to a URL by the server `/login` and some omits the (/) .
   - Example on redirect parameters: ![image](https://github.com/user-attachments/assets/a9a133ff-c27f-455d-a024-78565ae9d098) </br>
   - >[!Note]
     > Not all redirect parameters have straightforward names such as `redirect` and `redir`.\
-    > Pages that do not have redirect parameters but still redirects users automatically are candidates for referer-based open redirects and to find them, focus on 3XX status codes such as 301         and 302 codes.\
-  - 
+    > Pages that do not have redirect parameters but still redirects users automatically are candidates for referer-based open redirects and to find them, focus on 3XX status codes such as 301         and 302 codes.
 - Use google dorks to find additional redirect params
-  - test
+  
+  - >[!NOTE]
+    >Google Dorks are advanced search techniques that use special operators to find specific and often hidden information which makes it suitable for finding redirect parameters.\
+    >Special Operators are commands such as `site` , `inurl`, `intext` and more.\
+    >`Site` -> finds result on a specific website.\
+    >`Inurl` -> searches for a keyword in a URL.
+  - Example:
+    - Use `site : example.com` to define your target website and then you can use `inurl` to search for specific terms in the URL
+    - To look for pages that contain Relative URls in their URL parameter, make use of `inurl: %3D%2F site: example.com` where `%3D` is the URL encoded version of (=) and `%2F` is the URL encoded version of (/), so you are looking for the terms `=/` in the URL given.\
+      - Example results are: ![image](https://github.com/user-attachments/assets/ffc59d96-28ea-4049-bac4-0b6b17942cb8)
+    - To look for pages that contain Absolute URLs in their URL parameter, make use of `inurl: %3Dhttp site:example.com` or `inurl: %3Dhttps site:example.com`.
+      - Example results are: ![image](https://github.com/user-attachments/assets/07d96a3c-bde6-4945-a794-076f213892a6)
+    
+   
