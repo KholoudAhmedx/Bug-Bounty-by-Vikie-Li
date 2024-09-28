@@ -94,6 +94,11 @@ Sites prevents open redirects by validating the URL used to redirect users >> Th
      - Combine both methods: `https://example.com/login?redirect=//example.com.attacker.com/example.com` where the URL starts and ends with both a legitimate site's name(listed in the allowlist of the URL validator) and here the real redirection happens in the `attacker.com` part. (In case of restrictive URL validators)</br>![image](https://github.com/user-attachments/assets/3103abf9-5448-492c-ba69-6939275efc80)</br>
      - Include the '@' symbol, which tells the browser that anything before the '@' is just the username and can be ignored. The real domain comes after the '@'`https://example.com@attacker.com/example.com`</br>![image](https://github.com/user-attachments/assets/5e80a63a-92b7-4329-bcbc-96b75e96f0dd)</br>
 - <mark> Using data urls </mark>
-  - 
+  - Data URLs is used to embed files in the URL and have the following format: `data:scheme` and that scheme is constucted in the following way:</br>![image](https://github.com/user-attachments/assets/7a155965-e7ca-4774-a4c7-84ccda349244) </br> We can manipulate that scheme portion to fool the validator, HOW?
+    - We can send plaintext messages using this scheme `data:text/plain,hello!` or an encoded message using this scheme `data:text/plain;base64,aGVsG8h`
+    - We can also use it to embed encoded URL in the data URL scheme</br> ![image](https://github.com/user-attachments/assets/c6381a8f-c81c-40b7-977a-99f493c79955)</br> Where this previous scheme is the base64 encoded version of the following js code that redirects users to the target URL:</br> ![image](https://github.com/user-attachments/assets/150787cc-5b82-4924-a805-fb9b9da40812)</br> <mark> You can insert that data URL into the redirect parameter to bypass blocklists:</mark></br> ![image](https://github.com/user-attachments/assets/163840e0-4121-4778-86a1-79849e2c00b1)</br>
+
+
+
 
    
