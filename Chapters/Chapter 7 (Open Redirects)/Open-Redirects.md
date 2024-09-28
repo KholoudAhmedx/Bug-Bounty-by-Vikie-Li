@@ -80,10 +80,16 @@ Sites prevents open redirects by validating the URL used to redirect users >> Th
 > 3. Contain chars the the browser don't know how to decode
 > 4. Have extra or missing components</br>
 > Example:</br> ![image](https://github.com/user-attachments/assets/36b4524e-cb4c-42a5-a91e-847911a6d042)
-</br>
-### Bypassing Strategies: 
-1. Using browser autocorrect
-  2. 
+
+### Bypassing Strategies:
+- <mark> Using browser autocorrect </mark>
+  - Most modern browsers autocorrects URLs that don't have the right components resulting from user typos.
+    - For example:</br>Browser interprets the following URLs as this one `https://attacker.com` </br> ![image](https://github.com/user-attachments/assets/cdd694b5-7c5e-4b0a-8eda-4d7b151457b7)</br> In this case you can bypass URL validation based on a blocklist that prevents URLs with this pattern `http://` or `https://` where you can use one of the alternative formats above to redirect to the malicious website. </br>![image](https://github.com/user-attachments/assets/60ccd68e-6f7d-4e99-87f8-c268e2914203)</br>
+  - Most modern browsers corrects backslashes (\\) to be forward slashes (/) which can cause errors if the URL validator doesn't recognize this
+    - For example, if we have this URL `https://attacker.com\@example.com`, the URL validator interprets this in the following manner: </br> It treats the attacker.com as the username information (refer to the previous URL format), the backward slash as path separator, and considers the part after the (\\) to be the hostname poprtion, redirecting the user to the `exampl.com`. But since the browser autocorrects the (\\) to be (/) then the URL would be `https://attacker.com/@example.com`, and in this case, the URL validator interprets the URL in the following manner:</br> the `attacker.com` portion is the hostname portion of the URL and the `@example.com` portion is the path portion and therefore, redirects the user to the `attacker.com` page.</br>
+
+
+    
 
 
    
