@@ -98,6 +98,13 @@ Sites prevents open redirects by validating the URL used to redirect users >> Th
     - We can send plaintext messages using this scheme `data:text/plain,hello!` or an encoded message using this scheme `data:text/plain;base64,aGVsG8h`
     - We can also use it to embed encoded URL in the data URL scheme</br> ![image](https://github.com/user-attachments/assets/c6381a8f-c81c-40b7-977a-99f493c79955)</br> Where this previous scheme is the base64 encoded version of the following js code that redirects users to the target URL:</br> ![image](https://github.com/user-attachments/assets/150787cc-5b82-4924-a805-fb9b9da40812)</br> <mark> You can insert that data URL into the redirect parameter to bypass blocklists:</mark></br> ![image](https://github.com/user-attachments/assets/163840e0-4121-4778-86a1-79849e2c00b1)</br>
 
+- <mark> Exploiting URL decoding </mark>
+  - Purpose of URL encoding: URls sent over the internet can only contains ASCII chars that includes few English chars along with a few special characters. But since URLs needs to include more chars than the ones in the ASCII, people needed to encode URLs
+  -  URL encoding converts each character into a percentage sign (%) followed by 2 hex digits. Example, encoding of (/) is (%2F)
+  -  For validators to validate the URL or for the browser to redirect users, they need to decode the URL first to know what does it contains, and if there's a consistency between how validators and browsers decode URLs we can exploit that.
+  -  To Exploit that we can do:
+      - Double Encoding -> the purpose of double encoding is when there's a mismatch between the ways the validator and the browser decode URLs this would come in handy to bypass the URL validator, HOW?</b> ![image](https://github.com/user-attachments/assets/599c8726-1205-499b-bbaa-3b49f1ccce69) </br>
+      - Non-ASCII Character ->        
 
 
 
