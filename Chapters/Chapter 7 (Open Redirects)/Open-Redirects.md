@@ -104,7 +104,8 @@ Sites prevents open redirects by validating the URL used to redirect users >> Th
   -  For validators to validate the URL or for the browser to redirect users, they need to decode the URL first to know what does it contains, and if there's a consistency between how validators and browsers decode URLs we can exploit that.
   -  To Exploit that we can do:
       - Double Encoding -> the purpose of double encoding is when there's a mismatch between the ways the validator and the browser decode URLs this would come in handy to bypass the URL validator, HOW?</b> ![image](https://github.com/user-attachments/assets/26ac015f-ca06-4ffa-8650-1d61f0d4938a)</br>
-      - Non-ASCII Character -> We can exploit the inconsistencies in the way the validator and browser decode non-ASCII characters 
+      - Non-ASCII Character -> We can exploit the inconsistencies in the way the validator and browser decode non-ASCII characters</br> ![image](https://github.com/user-attachments/assets/2c660882-15c8-4c63-8698-0a0c385abf4f) </br>
+
 
 
 
