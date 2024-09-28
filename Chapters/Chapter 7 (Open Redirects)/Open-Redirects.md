@@ -73,13 +73,8 @@ Sites prevents open redirects by validating the URL used to redirect users >> Th
 **Why is it difficult to get URL validation right?**
 > Browsers handle URL redirection based on how they interpret the different components of a URL and these components are:</br> ![image](https://github.com/user-attachments/assets/feb0f6d4-5730-4728-bee2-048601fb9753) </br>The URL validator needs to predict how the browser will redirect users and reject malicious URLs and since the browser redirects users to the location indicated by the hostname portion of the URL and URLs don't always follow that strict format given above. Therefore causes validators to not account all the edge cases that leads to causing the browser to behave unexpectedly.<br>
 
-**What are other foramts the URL can have?**</br>
-> URLs can be :
-> 1. malformed
-> 2. Have components out of order
-> 3. Contain chars the the browser don't know how to decode
-> 4. Have extra or missing components</br>
-> Example:</br> ![image](https://github.com/user-attachments/assets/36b4524e-cb4c-42a5-a91e-847911a6d042)
+**What are other formats the URL can have?**</br>
+Example:</br> ![image](https://github.com/user-attachments/assets/36b4524e-cb4c-42a5-a91e-847911a6d042)
 
 ### Bypassing Strategies:
 - <mark> Using browser autocorrect </mark>
