@@ -87,9 +87,13 @@ Sites prevents open redirects by validating the URL used to redirect users >> Th
     - For example:</br>Browser interprets the following URLs as this one `https://attacker.com` </br> ![image](https://github.com/user-attachments/assets/cdd694b5-7c5e-4b0a-8eda-4d7b151457b7)</br> In this case you can bypass URL validation based on a blocklist that prevents URLs with this pattern `http://` or `https://` where you can use one of the alternative formats above to redirect to the malicious website. </br>![image](https://github.com/user-attachments/assets/60ccd68e-6f7d-4e99-87f8-c268e2914203)</br>
   - Most modern browsers corrects backslashes (\\) to be forward slashes (/) which can cause errors if the URL validator doesn't recognize this
     - For example, if we have this URL `https://attacker.com\@example.com`, the URL validator interprets this in the following manner: </br> It treats the attacker.com as the username information (refer to the previous URL format), the backward slash as path separator, and considers the part after the (\\) to be the hostname poprtion, redirecting the user to the `exampl.com`. But since the browser autocorrects the (\\) to be (/) then the URL would be `https://attacker.com/@example.com`, and in this case, the URL validator interprets the URL in the following manner:</br> the `attacker.com` portion is the hostname portion of the URL and the `@example.com` portion is the path portion and therefore, redirects the user to the `attacker.com` page.</br>
-
-
-    
-
+- <mark> Exploiting Flawed Validator Logic </mark>
+  - One common protection against open redirects that URL validators perform is checking whether the URL starts, contains, or ends with a legitimate website such as `https://example.com`. There are ways to bypass this: 
+     - Include the legitimate site's name as a subdomin, for example `https://example.com/login?redirect=https://example.com.attacker.com`</br> ![image](https://github.com/user-attachments/assets/565d5f8f-b7e2-4d75-8a21-edd7533649e5) </br>
+     - Include the legitimate site's name in the path poriton (at the end of the URL) `https://example.com/login?redirect=//attacker.com/example.com`</br>
+     - Combine both methods: `https://example.com/login?redirect=//example.com.attacker.com/example.com` where the URL starts and ends with both a legitimate site's name(listed in the allowlist of the URL validator) and here the real redirection happens in the `attacker.com` part. (In case of restrictive URL validators)</br>![image](https://github.com/user-attachments/assets/3103abf9-5448-492c-ba69-6939275efc80)</br>
+     - Include the '@' symbol, which tells the browser that anything before the '@' is just the username and can be ignored. The real domain comes after the '@'`https://example.com@attacker.com/example.com`</br>![image](https://github.com/user-attachments/assets/5e80a63a-92b7-4329-bcbc-96b75e96f0dd)</br>
+- <mark> Using data urls </mark>
+  - 
 
    
