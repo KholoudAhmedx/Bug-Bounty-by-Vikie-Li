@@ -17,3 +17,15 @@ Blind differs from Regular SSRF in that it doesn't return a feedback to the atta
 To prevent SSRF from hapening, we need to prevent the server from sending requests to internal resources the same way it does with the external resources.</br>
 **Example:** </br>
 If you are about to post a link on a twitter, the server sends a request to that external server to fetch an image and creats a thumbnail, so if it does the same with internal resources, an SSRF orginates.</br>
+**Another Example For Clarifications: **</br>
+If we have a website that retrieves a profile picture of a user from a url and to upload it, the request may be something like this:</br>![image](https://github.com/user-attachments/assets/bfbceced-2f13-4ad5-98e2-050608285489) </br>
+This is the safe and intended functionality. If the serve is not performing the correct restrictions, the attacker could send a request like this:</br>![image](https://github.com/user-attachments/assets/2b3425ff-b609-49d4-a52e-9f123f2ddf2e) </br> that causes the server to retrieve sensitive resources such as password file, and display it to the user. 
+>[!NOTE]
+> `localhost` points to the server that handles the request, not the client (your machine). So when the web server recieves a request that includes `http://localhost/`, it interprets that as a request to itself.</br>
+## Prevention Methods
+#### There are three ways to prevent against SSRFs:</mark>
+- Blocklists -> companies blocklist internal network addresses and reject any requests that redirects to those addresses as there are way too many external addresses to allow:D"
+- Allowlists -> servers allow requests that contain URLs found in a premade list and reject all other requests
+- Servers also protect against SSRF by requiring special headers or secret tokens in internal requests. 
+
+
