@@ -13,3 +13,7 @@ Blind differs from Regular SSRF in that it doesn't return a feedback to the atta
 #### <mark>Example:</mark> </br>
 1. Regular SSRF -> as in the previous request `http://public.example.com/proxy?url=http://admin.example.com`, this returns the admin panel to the attacker, therefore knows that the attack has succeed
 2. Blind SSRF -> as in this request, `https://public.example.com/send_request?url=https://admin.example.com/delete_user?user=1`, the user will be deleted but not feedback is returned to confirm the attack has succeeded.
+# Prevention
+To prevent SSRF from hapening, we need to prevent the server from sending requests to internal resources the same way it does with the external resources.</br>
+**Example:** </br>
+If you are about to post a link on a twitter, the server sends a request to that external server to fetch an image and creats a thumbnail, so if it does the same with internal resources, an SSRF orginates.</br>
