@@ -27,5 +27,14 @@ This is the safe and intended functionality. If the serve is not performing the 
 - Blocklists -> companies blocklist internal network addresses and reject any requests that redirects to those addresses as there are way too many external addresses to allow:D"
 - Allowlists -> servers allow requests that contain URLs found in a premade list and reject all other requests
 - Servers also protect against SSRF by requiring special headers or secret tokens in internal requests. 
+# Hunting for SSRFs
+#### There are two ways to discover SSRF vulnerabilities: 
+1. Check the application's source code to see if all user-provided URLs are validated
+2. Check features that are prone to SSRF such as file uploads, document and image processors (such as pdf converter websites), proxy services, link expansion and thumbnails (such as the ones on Twitter and Facebook) and webhooks </br>
+#### Example of Potential SSRFs endpoints:
+![image](https://github.com/user-attachments/assets/b2017543-f372-4779-8be3-23b7df089771)
 
-
+#### Steps: 
+1. <mark> Spot features prone to SSRFs </mark> (features that require visiting and fetching external resources; mentioned previously) // Test any endpoints the processes user-provided URLs // Pay attention to URLs embedded in files that are processed by the application (such as XML files), hidden APIs that accepts URLs as input, and input that gets inserted into HTML tags.
+2. <mark> Provide potentially vulnerable endpoints with Internal URLs </mark> , and based on the configuration of the network you might try different addresses before you find the one used in the network, but some of the common reserved IPs used in internal networks are `localhost`, `127.0.0.1`, `0.0.0.0`, `192.168.0.1`, and `10.0.0.1`.
+3. <mark> Check the results </mark>
