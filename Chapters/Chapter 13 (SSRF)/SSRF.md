@@ -62,3 +62,16 @@ Another scenario is when allowedlists are created using poorly designed regular 
 If you have an allowlist that accepts urls that has this pattern `.*example.com.*` , this regex can be easily bypassed since `.*` means that any number of characters, then a url like these two are allowed; `http://pics.example.com@127.0.0.1` (here `pics.example.com` is in the name portion of the url so the request  will be directed to 127.0.0.1) and `http://127.0.0.1/pic.example.com` is also accepted (here `pics.example.com` is in the directory portion of the url, so the request will be directed to `127.0.0.1` as well).
 
 ## Bypassing Blocklists
+1. Fooling it with redirects -> you can make the server send requests to a server you control and then redirect the request to a blocklisted address by taking advantage of the Open Redirects vulnerability;</br>
+You can trick the server into sending a request like this `https://public.example.com/proxy?url=https://attacker.com/ssrf` where the ssrf has a piece of code that redirects to the blocklisted IP of local address. This piece of code might look like something like this `<?php header("Location:http://127.0.0.0.1"); ?>`.</br>
+2. Using IPv6 addresses -> sites that has prevention mechanisms against SSRF might be implemented against IPv4 addresses but not IPv6, so you can use the IPv6 address of the local host instead `::1` or the IPv6 of the first address of the network `fc00`.
+3. Tricking the server with DNS -> you can trick the server to send a request to a blocklisted address by changing the DNS record of a non-blocked adress to make the hostnam maps to the IP address of the blocklisted address. For example we can make the server sends a request like this: ![image](https://github.com/user-attachments/assets/fff72368-672d-4546-9567-f4233c824ac9) </br>
+where the `https://attacker.com` is mapped to the IP address of the localhost `127.0.0.1`.</br>
+4. Switching out the Encoding -> To bypass blocklists you can use the blocklisted IPs encoded with different methods such as dword encoding, URL encoding, octal encoding .. etc, or a combination of all the methods. So if the URL parser can not process the different encoding methods appropriately, we can bypass it. Example of octal encoded version of the localhost `127.0.0.1` :</br>![image](https://github.com/user-attachments/assets/2d5fa378-a8c4-4812-a934-859c50292b0c) </br>
+
+# Escalating the Attack
+If we found an SSRF vulnerability, we can chain it with other with different bugs and have bigger impact.
+>[!Note]
+>What we can acheive with SSRF depends on the internal service found on the network. So we can use SSRF for different scenarios that are listed below.</br>
+
+1. Perform network scanning
