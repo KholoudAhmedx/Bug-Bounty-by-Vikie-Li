@@ -74,4 +74,13 @@ If we found an SSRF vulnerability, we can chain it with other with different bug
 >[!Note]
 >What we can acheive with SSRF depends on the internal service found on the network. So we can use SSRF for different scenarios that are listed below.</br>
 
-1. Perform network scanning
+1. Perform network scanning</br>
+</t></t> After finding an SSRF vulnerability that is exploitable, we can use this fact to scan the network for reachable hosts or open ports that helps us to construct futher attacks against the system. For example, we can use different IPv4 addresses of internal hosts such as `10.0.0.1` and mointor the server behavoir to see if any info is revealed. </br>
+![image](https://github.com/user-attachments/assets/50f7d95d-7a4c-4896-bf34-2a3a1b70c64c) </br>
+![image](https://github.com/user-attachments/assets/ab2a7899-20a9-4fb7-833d-8c4347d28935) </br>
+This indicates that the host is reachable, since it reveals information about the service. Unlike this one below, that indicates the the host is not reachable.</br>
+![image](https://github.com/user-attachments/assets/bc134912-91d9-436e-9753-b42eed67941a)</br>
+![image](https://github.com/user-attachments/assets/77cd9837-673d-4b34-90c8-b0f00b3260c8)</br>
+and same goes for port scanning.</br>
+
+
