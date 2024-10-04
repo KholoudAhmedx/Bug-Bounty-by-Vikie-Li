@@ -82,5 +82,8 @@ This indicates that the host is reachable, since it reveals information about th
 ![image](https://github.com/user-attachments/assets/bc134912-91d9-436e-9753-b42eed67941a)</br>
 ![image](https://github.com/user-attachments/assets/77cd9837-673d-4b34-90c8-b0f00b3260c8)</br>
 and same goes for port scanning.</br>
+2. Pull instance metadata </br>
+</t></t> Cloud services such as Google cloud and Amazon EC2 allow virtual servers (called instances) to acces metadata about themselves via an API endpoint such as the endpoint of Amazon Ec2 `169.254.169.254` allows you to pull metadata that includes sensitive information such as Instance ID// IAM roles and security credentials // Network settings and user data. </br>
+3. 
 
 
