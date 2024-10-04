@@ -59,6 +59,6 @@ Make use of Open Redirect vulnerability to redirect users to the url of the inte
 We utilize an open redirect on `pics.example.com` to redirect the request to the IP address of the local host. </br>
 Another scenario is when allowedlists are created using poorly designed regular expressions (regex).</br>
 <mark> Example: </mark></br>
-If you have an allowlist that accepts urls that has this pattern `.*example.com.*` , this regex can be easily bypassed since `.*` means that any number of characters, then a url like these two are allowed; `http://pics.example.com@127.0.0.1` (here `pics.example.com` is in the name portion of the url so the request  will be directed to 127.0.0.1) and `http://127.0.0.1/pic.example.com` is also accepted (here `pics.example.com` is in the directory path of the url, so the request will be directed to `127.0.0.1` as well).
+If you have an allowlist that accepts urls that has this pattern `.*example.com.*` , this regex can be easily bypassed since `.*` means that any number of characters, then a url like these two are allowed; `http://pics.example.com@127.0.0.1` (here `pics.example.com` is in the name portion of the url so the request  will be directed to 127.0.0.1) and `http://127.0.0.1/pic.example.com` is also accepted (here `pics.example.com` is in the directory portion of the url, so the request will be directed to `127.0.0.1` as well).
 
 ## Bypassing Blocklists
