@@ -84,6 +84,15 @@ This indicates that the host is reachable, since it reveals information about th
 and same goes for port scanning.</br>
 2. Pull instance metadata </br>
 </t></t> Cloud services such as Google cloud and Amazon EC2 allow virtual servers (called instances) to acces metadata about themselves via an API endpoint such as the endpoint of Amazon Ec2 `169.254.169.254` allows you to pull metadata that includes sensitive information such as Instance ID// IAM roles and security credentials // Network settings and user data. </br>
-3. 
+3. Exploit blind SSRFs
+</t></t> Limited to network mapping, port scanning and service discovery and analyze HTTP status code and reponse times as mentioned before.
+4. Attack the network</br>
+</t></t>Use what you’ve found by scanning the network, identifying services, and
+pulling instance metadata to execute attacks that have impact.</br>
+#### Steps 
+1. Bypass access controlls; many sites might control access based on IP addresses or internal headers only where it can be easily bypassed by sending the request from a trusted machine
+2. Use the credentials you found by exploiting SSRF to access confidential information stored on the network.
+3. Use the info you gathered to turn SSRF into RCE; for example if you found admin credentials that has write privileges, try uploading a shell to the web server.
+
 
 
