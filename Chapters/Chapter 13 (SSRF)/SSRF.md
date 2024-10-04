@@ -40,4 +40,14 @@ This is the safe and intended functionality. If the serve is not performing the 
 3. <mark> Check the results </mark></br>
 </t></t> 1. In regular SSRF, check if the server returns a reponse that reveals information such as a service banner or internal webpage. For example, if we were to send a request like this `user_id=1234&url=127.0.0.1:22` to the server, if the server responds with information about itself then it's prone to SSRF.</br> Example of how the reponse would look like: `Error: cannot upload image: SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.4`</br>
 </t></t> 2. In the case of Blind SSRF, the easiest way is to make the server sends a request to an external server that you control and check your server logs to monitor the request from the server.</br>
-</t></t></t><strong> Possible ways to make this is to either use online hosting services (such as Godady or Hostinger) that allows you to host a website on a domin and then submit that domain in the SSRF testing payload or turn your own machine into a listener by using `Netcat` and then point your SSRF payload to your IP address along with the port number you are listening at and monitor any incoming traffic.</strong> 
+</t></t></t><strong> Possible ways to make this is to either use online hosting services (such as Godady or Hostinger) that allows you to host a website on a domin and then submit that domain in the SSRF testing payload or turn your own machine into a listener by using `Netcat` and then point your SSRF payload to your IP address along with the port number you are listening at and monitor any incoming traffic.</strong> </br>
+>[!Note]
+> Blind SSRF cannot be used to read internal files or access internal services, therefore, we need to confirm it's exploitability by trying to explore the internal network with SSRF.</br>
+
+#### Exploring Internal Network with SSRF 
+Make requests to different target ports (open and close) and monitor the behavior of the server, this helps the attackers determine whether or not they can access the internal network by using SSRF.</br>
+**While monitoring the behavior of the server, focus on two things:** </br>
+  - HTTP status codes in the reponse; if a port is open, the server returns status code of `200`</br>
+  - Time difference between responses; if a port is closed the server usually responds faster</br>
+
+
