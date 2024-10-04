@@ -49,5 +49,5 @@ Make requests to different target ports (open and close) and monitor the behavio
 **While monitoring the behavior of the server, focus on two things:** </br>
   - HTTP status codes in the reponse; if a port is open, the server returns status code of `200`</br>
   - Time difference between responses; if a port is closed the server usually responds faster</br>
-
+# Bypassing SSRF Protections
 
