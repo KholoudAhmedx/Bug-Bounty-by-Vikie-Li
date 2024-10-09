@@ -54,6 +54,10 @@ To hunt for clickjacking vulnerabilities, look for pages that:
 # Bypassing Protection
 If the website doesn't implement the complete clickjacking protections, you might bypass the protections; </br>
 One of the methods is finding a loophole in the frame-busting code. Look for features that allows you to embed custom iframes, if you found one, you can bypass clickjacking protection by using the **double iframe** trick.</br>  ![image](https://github.com/user-attachments/assets/b5ba308e-0db6-43c4-8bad-e59787116360)</br>
-
-
+# Escalating the Attack
+1. Focus on the application's most critical functionalities to acheive maximum business impact. 
+2. Combine multiple clickjacking vulnerabilities or chain clickjacking with other bugs to pave the way to more severe security issues.
+   Example: Imagine we have a banking website that has 2 vulnerabilities, the first one allows the attacker to change account's email, and the second allows the attacker to send an account summary to that email which can reveal sensitive info such as credit card number, phone number and so on. The malicious page might look like this: </br>![image](https://github.com/user-attachments/assets/e030a849-a855-4d5c-b83c-0c17675aa249)</br>
+>[!Note:]
+>For this attack to succeed, the user should click on the attacker's site twic.
 
