@@ -35,6 +35,21 @@ The attacker then tricks the user to transfer money from the victim's banking ac
 </t></t>2. if `frame ancestors` is set to `self` -> will allow sites from the same origin to frame the page; `Content-Security-Policy: frame-ancestors 'self';`;</br>
 </t></t>3. if `frame ancestors` is set to a specific origin  -> will allow that origin to frame the content; `Content-Security-Policy: frame-ancestors 'self' *.example.com;`; (this will allow all subdomains from `example.com` to frame the content</br>
 3. `Set-Cookie` response header's `SameSite`; Not only `Set-Cookies` is used to authenticate users by providing the cookie-name=cookie_value designation, it can also be used to prevent clickjacking attacks by setting `SameSite` value either to `Lax` or `Strict`. That prevents cookies from being sent in requests made within a third-party iframe so any clickjacking attack that requires the victim to be authenticated, wouldn't even work.</br>
+4. Unreliable way: frame-busting, uses Javascript code to check if a page is in iframe, and if it's framed by a trusted site. 
 ***Example***</br>
 </t></t>1. `Set-Cookie: PHPSESSID=UEhQU0VTU0lE; Max-Age=86400; Secure; HttpOnly; SameSite=Strict` </br>
 </t></t>2. `Set-Cookie: PHPSESSID=UEhQU0VTU0lE; Max-Age=86400; Secure; HttpOnly; SameSite=Lax`</br>
+# Hunting For Clickjacking
+To hunt for clickjacking vulnerabilities, look for pages that:
+1. Contains sensitive state-changing actions
+2. Can be framed
+
+**Steps**:
+1. Look for pages that contains state-changing actions, otherwise, the attacker cannot cause damage to the user's account;</br>
+</t></t> 1. Go through all the functionalities of the application, click all links, write down all actions along with the URL of the pages they are hosted on;; Example of state-changing request`Change password: bank.example.com/password_change`</br>
+</t></t> 2. Checks if the action can be acheived by clicks only not via keyboard as well
+2. Intercept the traffic using proxy and checks if the pages hosting the state-changing functionalities has `X-Frame-Options` or `Content-Security-Policy` response headers, if not, then the webpage is vulnerable to clickjacking; Also check for `SameSite` flag in the Set-Cookie header if the webpage requires user authenticatioin.
+3. Check if the page if frameable or not by creating a simple template with `iframe` tag that specifies the URL of the taget in the iframe's `src` attribute
+4. Confirm the vulnerability
+# Bypassing Protection
+If the website doesn't implement the complete clickjacking protections, you might bypass the protections; </br>
