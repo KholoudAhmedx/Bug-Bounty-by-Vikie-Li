@@ -30,4 +30,6 @@ The attacker then tricks the user to transfer money from the victim's banking ac
 
 **Defensive methods**
 1. `X-Frame-Options : Deny` or `X-Frame-Options:SAMEORIGIN` headers are one of the ways to prevent clickjacking by including one of these option headers in the HTTP response to indicate that the page's content cannot be rendered in an `iframe` tag; (The site should serve one of these options on all pages that contain state-changing actions)  
-2.  
+2.  `Content-Secuirty-Policy` response header's directive `frame ancestors` can also be used to prevent against clickjacking.</br>
+</t></t>1. if `frame ancestors` is set to `none` -> will prevent any site from framing the page; `Content-Security-Policy: frame-ancestors 'none;'`;</br>
+</t></t>2. if `frame ancestors` is set to `self` -> will allow sites from the same origin to frame the page; `Content-Security-Policy: frame-ancestors 'self';`;</br>
