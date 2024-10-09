@@ -20,4 +20,11 @@ The attacker then tricks the user to transfer money from the victim's banking ac
 1. Attacker adds an `iframe` tag into the malicious website that has the following url `https://www.example.com/transfer_money?recpid=attacker's account id & amount=5000`
 2. Attacker overlay this page over the banking account page by changing the malicious website's CSS style to prevent it from being noticable to the victim (search for how iframe embeds pages, and you will understand why it is important to change css properties)
 3. When the user clicks on submit email button (malicious button that looks legitimate), he's actually clicking on the transfer money in the background.
- 
+>[!Note]
+>Finding an easy-to-prevent vulnerability on a critical functionality like clickjacking on a balance transfer page is an indication that this webpage doesn't follow the best practices of secure development, so this webapge is likely to contain another vulnerabilities that you should check for.
+
+# Prevention
+**For a clickjacking vulnerability to happen two conditions must be met:**
+1. The target website allows itself to be framed in an `iframe` tag
+2. The target website has the functionality to execute actions on the user's behalf like changing account settings or personal data (refer to the example above)
+
