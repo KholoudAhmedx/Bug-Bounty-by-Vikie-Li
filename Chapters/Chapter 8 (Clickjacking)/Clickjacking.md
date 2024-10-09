@@ -53,3 +53,7 @@ To hunt for clickjacking vulnerabilities, look for pages that:
 4. Confirm the vulnerability
 # Bypassing Protection
 If the website doesn't implement the complete clickjacking protections, you might bypass the protections; </br>
+One of the methods is finding a loophole in the frame-busting code. Look for features that allows you to embed custom iframes, if you found one, you can bypass clickjacking protection by using the **double iframe** trick.</br>  ![image](https://github.com/user-attachments/assets/b5ba308e-0db6-43c4-8bad-e59787116360)</br>
+
+
+
