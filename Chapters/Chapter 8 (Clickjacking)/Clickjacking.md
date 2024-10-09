@@ -33,3 +33,8 @@ The attacker then tricks the user to transfer money from the victim's banking ac
 2.  `Content-Secuirty-Policy` response header's directive `frame ancestors` can also be used to prevent against clickjacking.</br>
 </t></t>1. if `frame ancestors` is set to `none` -> will prevent any site from framing the page; `Content-Security-Policy: frame-ancestors 'none;'`;</br>
 </t></t>2. if `frame ancestors` is set to `self` -> will allow sites from the same origin to frame the page; `Content-Security-Policy: frame-ancestors 'self';`;</br>
+</t></t>3. if `frame ancestors` is set to a specific origin  -> will allow that origin to frame the content; `Content-Security-Policy: frame-ancestors 'self' *.example.com;`; (this will allow all subdomains from `example.com` to frame the content</br>
+3. `Set-Cookie` response header's `SameSite`; Not only `Set-Cookies` is used to authenticate users by providing the cookie-name=cookie_value designation, it can also be used to prevent clickjacking attacks by setting `SameSite` value either to `Lax` or `Strict`. That prevents cookies from being sent in requests made within a third-party iframe so any clickjacking attack that requires the victim to be authenticated, wouldn't even work.</br>
+***Example***</br>
+</t></t>1. `Set-Cookie: PHPSESSID=UEhQU0VTU0lE; Max-Age=86400; Secure; HttpOnly; SameSite=Strict` </br>
+</t></t>2. `Set-Cookie: PHPSESSID=UEhQU0VTU0lE; Max-Age=86400; Secure; HttpOnly; SameSite=Lax`</br>
