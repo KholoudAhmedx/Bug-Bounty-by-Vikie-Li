@@ -39,3 +39,9 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
  For example, if the site allows you to change a password with a GET request, you could post a link like this to trick users into clicking it: https://email.example.com/password_change?new_password=abc123. And since clicking a link is a top-level navigation, the cookies will be included in the GET request.
 2. When the user uses a browser that doesn't set the `SameSite` cookie to `Lax` by default, if the web application doesn't implement protection against CSRF, then traditional CSRF attacks will work
 3. When sites set the `SameSite` attribute to None, they allow cookies to be sent with cross-site requests, enabling third-party features like social logins or embedded services.
+
+# Hunting for CSRFs
+1. Spot state-changing actions</br>
+  1.Log in to your target site and browse it, go through all functionalities, click all links and buttons.</br>
+  2.Intercept the generated request with a proxy and write down their URL endpoints.</br>
+  3.Record these endpoints one by one in a list like the one below so you can visit them later.</br> Assuming we are testing this subdomain `email.example.com`</br>![image](https://github.com/user-attachments/assets/221786b6-e727-4798-b6e5-c9ae69c83a75)</br>
