@@ -1,4 +1,4 @@
-# Cross Site Request Forgery
+![image](https://github.com/user-attachments/assets/b6154397-662b-4675-b42d-876a2271769c)# Cross Site Request Forgery
 Goal: Attack other users of a web application.</br>
 CSRF is a web vulnerability that allows attackers to send requests that carry unwanted actions on a behalf of a victim (user).</br>
 CSRF is a client side vulerability.</br>
@@ -14,14 +14,22 @@ Imagine CSRF vulnerability exists on requests that change users' passwords, this
 ### Scenario 3 
 Imagine CSRF vulnerability exists on requests that handle user finances, like account balance, this can cause the attacker to make unauthorized balance transfers to their bank accounts.</br>
 # Prevention
-The best way to prevent against CSRF attacks is by using **CSRF tokens**. </br>
-**CSRF tokens** are random and unpredictable strings that applications embed in every form on their websites.</br>
-Servers generate CSRF tokens for each session and or HTML form, and send them to the browser, so when the user makes a state-changing request, the browser embeds these tokens with the request for the server to be able to make sure that the request orginated from the original website.</br>
-**How the server generates CSRF tokens and embeds it within the form**<mark> (using PHP) </mark></br>
-![image](https://github.com/user-attachments/assets/252ec5ac-9afe-4325-a52e-da078a123baa)</br>
-**How the form is displayed for users**</br>
-![image](https://github.com/user-attachments/assets/fa8b438b-0010-4958-9fbc-ff7357c9179d)</br>
-The server requires the browser to send the correct CRSF token post param to validate the request, and if the CSRF token is missed or incorrect, the server rejects the request.</br>
-**How the request should look like**</br>
-![image](https://github.com/user-attachments/assets/e3c2eb23-a648-48a8-a0f3-70c55a3f5e86) </br>
+1. The best way to prevent against CSRF attacks is by using **CSRF tokens**. </br>
+  **CSRF tokens** are random and unpredictable strings that applications embed in every form on their websites.</br>
+  Servers generate CSRF tokens for each session and or HTML form, and send them to the browser, so when the user makes a state-changing request, the browser embeds these tokens with the request for the server to be able to make sure that the request orginated from the original website.</br>
+  **How the server generates CSRF tokens and embeds it within the form**<mark> (using PHP) </mark></br>
+  ![image](https://github.com/user-attachments/assets/252ec5ac-9afe-4325-a52e-da078a123baa)</br>
+  **How the form is displayed for users**</br>
+  ![image](https://github.com/user-attachments/assets/fa8b438b-0010-4958-9fbc-ff7357c9179d)</br>
+  The server requires the browser to send the correct CRSF token post param to validate the request, and if the CSRF token is missed or incorrect, the server rejects the request.</br>
+  **How the request should look like**</br>
+  ![image](https://github.com/user-attachments/assets/e3c2eb23-a648-48a8-a0f3-70c55a3f5e86) </br>
+2. Use `SameSite` flag to protect user's cookie
+  When the `SameSite` flag on a cookie is set to `Strict`, the client's browser won't send the cookie during cross-site requests.</br>
+  ![image](https://github.com/user-attachments/assets/0dc71961-bfdd-4041-9332-26b70e89560d)</br>
+3. Another possible way is to set `SameSite` flag to `lax`</br>
+   `lax` tells the browser to send cookies in requests that cause top-level navigation (when users actively clicks on a button or a link that navigates them to the site) because the cross-site request is intentional.</br>
+   Example is when user navigates to facebook from a third-party site such as twitter, your cookies will be sent in the request.</br>![image](https://github.com/user-attachments/assets/b86d7694-51e6-42de-a9a1-eadb827edcca)</br>
+
+
 
