@@ -1,4 +1,4 @@
-# Cross Site Request Forgery
+![image](https://github.com/user-attachments/assets/39c2dbd5-a929-4361-9fdd-cd8fc4c79483)![image](https://github.com/user-attachments/assets/0d1f2992-dadb-4696-a458-67ddb9360e61)# Cross Site Request Forgery
 Goal: Attack other users of a web application.</br>
 CSRF is a web vulnerability that allows attackers to send requests that carry unwanted actions on a behalf of a victim (user).</br>
 CSRF is a client side vulerability.</br>
@@ -15,8 +15,9 @@ Imagine CSRF vulnerability exists on requests that change users' passwords, this
 Imagine CSRF vulnerability exists on requests that handle user finances, like account balance, this can cause the attacker to make unauthorized balance transfers to their bank accounts.</br>
 # Prevention
 The best way to prevent against CSRF attacks is by using **CSRF tokens**. </br>
-**CSRF tokens** are random and unpredictable strings that applications embed in every form on their websites. And then browsers send these tokens along with every state-changing request.</br>
-When the request reaches the server, the server can validate the token to make sure the request indeed originated from its website. </br>
-So for instance, in the previous example, if there were a  CSRF token used with the request to send tweets, we would not have been able to send this tweet on behalf of the user.</br>
->[!Note]
->CSRF tokens should be unique for each session and/or HTML form so attackers can’t guess the token’s value and embed it on their websites.
+**CSRF tokens** are random and unpredictable strings that applications embed in every form on their websites.</br>
+Servers generate CSRF tokens for each session and or HTML form, and send them to the browser, so when the user makes a state-changing request, the browser embeds these tokens with the request for the server to be able to make sure that the request orginated from the original website.</br>
+**How the server generates these tokens and embeds it within the form**<mark> PHP </mark></br>
+![image](https://github.com/user-attachments/assets/252ec5ac-9afe-4325-a52e-da078a123baa)</br>
+**How the form is displayed for users**</br>
+![image](https://github.com/user-attachments/assets/fa8b438b-0010-4958-9fbc-ff7357c9179d)</br>
