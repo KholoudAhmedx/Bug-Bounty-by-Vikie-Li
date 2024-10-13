@@ -29,7 +29,7 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
   ![image](https://github.com/user-attachments/assets/0dc71961-bfdd-4041-9332-26b70e89560d)</br>
 3. Another possible way is to set `SameSite` flag to `lax`</br>
    `lax` tells the browser to send cookies in requests that cause top-level navigation (when users actively clicks on a button or a link that navigates them to the site) because the cross-site request is intentional.</br>
-   Example is when user navigates to facebook from a third-party site such as twitter, your cookies will be sent in the request.</br>![image](https://github.com/user-attachments/assets/b86d7694-51e6-42de-a9a1-eadb827edcca)</br>
+   Example is when user navigates to facebook from a third-party site such as twitter, your cookies will be sent in the request (GET request).</br>![image](https://github.com/user-attachments/assets/b86d7694-51e6-42de-a9a1-eadb827edcca)</br> But if the third-party initiates a POST request to Facebook or tries to embed the contents of Facebook within an iframe, cookies won’t be sent.
 
 
 
