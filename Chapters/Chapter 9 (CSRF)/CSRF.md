@@ -52,3 +52,5 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
 >[!Note]
 >Some websites protect against CSRFs by checking the `referer` header in the request to check if the request is sent from a legitimate site or not, though it can be manipulated so developers should not depend on this protection method only. 
 # Bypassing CSRF Protection
+1. Exploit Clickjacking
+   1. If the endpoit is implementing CSRF token, but the page itself is vulnerable to clickjacking you can acheive the same results as a CSRF attack on the endpoint; you can frame the page in a malicious site while having the state-changing request orginate from a legitimate site and then tricks the user into making the request. 
