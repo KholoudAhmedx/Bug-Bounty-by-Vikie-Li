@@ -42,6 +42,11 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
 
 # Hunting for CSRFs
 1. Spot state-changing actions</br>
-  1.Log in to your target site and browse it, go through all functionalities, click all links and buttons.</br>
-  2.Intercept the generated request with a proxy and write down their URL endpoints.</br>
-  3.Record these endpoints one by one in a list like the one below so you can visit them later.</br> Assuming we are testing this subdomain `email.example.com`</br>![image](https://github.com/user-attachments/assets/221786b6-e727-4798-b6e5-c9ae69c83a75)</br>
+   1. Log in to your target site and browse it, go through all functionalities, click all links and buttons.</br>
+   2. Intercept the generated request with a proxy and write down their URL endpoints.</br>
+   3. Record these endpoints one by one in a list like the one below so you can visit them later.</br> Assuming we are testing this subdomain `email.example.com`</br>![image](https://github.com/user-attachments/assets/221786b6-e727-4798-b6e5-c9ae69c83a75)</br>
+2. Test them for CSRFs (Check if there's CSRF protection on these request or not)</br>
+   1. Go through the endpoints you listed and intercept the traffic using burp to see if any CSRF protection is implemented; look for any CSRF tokens that are sent via the URL parameter, or sent as a request header,cookies or via POST body parameter</br>
+3. Confirm the vulnerability</br>
+   1. You can do this by crafting a malicious HTML form that mimics the request sent to the orignial site, as this one below </br>![image](https://github.com/user-attachments/assets/57942bd2-9348-4a2f-beb5-0713242d7e95)</br>
+   
