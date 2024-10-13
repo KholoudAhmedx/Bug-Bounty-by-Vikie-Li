@@ -49,4 +49,5 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
    1. Go through the endpoints you listed and intercept the traffic using burp to see if any CSRF protection is implemented; look for any CSRF tokens that are sent via the URL parameter, or sent as a request header,cookies or via POST body parameter</br>
 3. Confirm the vulnerability</br>
    1. You can do this by crafting a malicious HTML form that mimics the request sent to the orignial site, as this one below </br>![image](https://github.com/user-attachments/assets/57942bd2-9348-4a2f-beb5-0713242d7e95)</br>
-   
+>[!Note]
+>Some websites protect against CSRFs by checking the `referer` header in the request to check if the request is sent from a legitimate site or not, though it can be manipulated so developers should not depend on this protection method only. 
