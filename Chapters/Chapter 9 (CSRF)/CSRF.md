@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/b6154397-662b-4675-b42d-876a2271769c)# Cross Site Request Forgery
+# Cross Site Request Forgery
 Goal: Attack other users of a web application.</br>
 CSRF is a web vulnerability that allows attackers to send requests that carry unwanted actions on a behalf of a victim (user).</br>
 CSRF is a client side vulerability.</br>
@@ -31,5 +31,11 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
    `lax` tells the browser to send cookies in requests that cause top-level navigation (when users actively clicks on a button or a link that navigates them to the site) because the cross-site request is intentional.</br>
    Example is when user navigates to facebook from a third-party site such as twitter, your cookies will be sent in the request (GET request).</br>![image](https://github.com/user-attachments/assets/b86d7694-51e6-42de-a9a1-eadb827edcca)</br> But if the third-party initiates a POST request to Facebook or tries to embed the contents of Facebook within an iframe, cookies won’t be sent.
 
-
-
+**Notes:**
+1. Chrom and other browsers made `SameSite=lax` is the default cookie settings that prevented attackers from being able to attack a victim who uses Chrome with POST CSRF
+2. On FireFox, the `SameSite` default setting is a feature that needs to be enabled</br>
+### Even if browsers adopt the `SameSite` default settings, CSRF is still possible under some conditions.</br>
+1. If the site allows state-changing requests with the GET HTTP method, third-party sites can attack users by creating CSRF with a GET request
+ For example, if the site allows you to change a password with a GET request, you could post a link like this to trick users into clicking it: https://email.example.com/password_change?new_password=abc123. And since clicking a link is a top-level navigation, the cookies will be included in the GET request.
+2. When the user uses a browser that doesn't set the `SameSite` cookie to `Lax` by default, if the web application doesn't implement protection against CSRF, then traditional CSRF attacks will work
+3. When sites set the `SameSite` attribute to None, they allow cookies to be sent with cross-site requests, enabling third-party features like social logins or embedded services.
