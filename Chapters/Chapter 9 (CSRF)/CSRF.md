@@ -56,9 +56,9 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
    1. If the endpoit is implementing CSRF token, but the page itself is vulnerable to clickjacking you can acheive the same results as a CSRF attack on the endpoint; you can frame the page in a malicious site while having the state-changing request orginate from a legitimate site and then tricks the user into making the request. 
 2. Changing the request method
    1. Sometimes sites will accept multiple request methods for the same endpoint, and maybe not all methods are protected against CSRF; So for example if the POST request of the `password_change` endpoint is protected against CSRF by using CSRF tokens like this:</br>![image](https://github.com/user-attachments/assets/03905b4e-96bc-43e4-b872-a6174c895d9a) </br>, we can test if we can change the request method to GET, does it execute the action without protection or not?</br> So instead of sending a POST request, we will send a GET request that looks like this:</br>![image](https://github.com/user-attachments/assets/e1094cd8-73e4-418b-b830-c3f18249d667)</br> And simply the malicious HTML page would look something like this:</br>![image](https://github.com/user-attachments/assets/4f59b5fb-e3bd-4567-8908-82d0f0a84788) </br> Once the image is loaded, it will send a GET request to the endpoint with the new_password value, and if this action is executed, then this endpoint is vulnerable to CSRF and you bypassed the protection by changing the request method.
-3. Bypassing CSRF tokens stored on the server
+3. Bypassing CSRF tokens stored on the server</br>
 <mark>Just because the website uses CSRF tokens, does it mean it validates them properly.</mark></br>
-If the site is not validating CSRF tokens properly, we can try different ways to acheive CSRF attack by modifying the malicious HTML page a little;</br>
-    1. 
+ If the site is not validating CSRF tokens properly, we can try different ways to acheive CSRF attack by modifying the malicious HTML page a little;</br>
+      1. gds
 
 
