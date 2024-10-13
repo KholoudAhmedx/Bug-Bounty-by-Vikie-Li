@@ -17,7 +17,7 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
 The best way to prevent against CSRF attacks is by using **CSRF tokens**. </br>
 **CSRF tokens** are random and unpredictable strings that applications embed in every form on their websites.</br>
 Servers generate CSRF tokens for each session and or HTML form, and send them to the browser, so when the user makes a state-changing request, the browser embeds these tokens with the request for the server to be able to make sure that the request orginated from the original website.</br>
-**How the server generates these tokens and embeds it within the form**<mark> PHP </mark></br>
+**How the server generates CSRF tokens and embeds it within the form**<mark> (using PHP) </mark></br>
 ![image](https://github.com/user-attachments/assets/252ec5ac-9afe-4325-a52e-da078a123baa)</br>
 **How the form is displayed for users**</br>
 ![image](https://github.com/user-attachments/assets/fa8b438b-0010-4958-9fbc-ff7357c9179d)</br>
