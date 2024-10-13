@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/39c2dbd5-a929-4361-9fdd-cd8fc4c79483)![image](https://github.com/user-attachments/assets/0d1f2992-dadb-4696-a458-67ddb9360e61)# Cross Site Request Forgery
+# Cross Site Request Forgery
 Goal: Attack other users of a web application.</br>
 CSRF is a web vulnerability that allows attackers to send requests that carry unwanted actions on a behalf of a victim (user).</br>
 CSRF is a client side vulerability.</br>
@@ -21,3 +21,7 @@ Servers generate CSRF tokens for each session and or HTML form, and send them to
 ![image](https://github.com/user-attachments/assets/252ec5ac-9afe-4325-a52e-da078a123baa)</br>
 **How the form is displayed for users**</br>
 ![image](https://github.com/user-attachments/assets/fa8b438b-0010-4958-9fbc-ff7357c9179d)</br>
+The server requires the browser to send the correct CRSF token post param to validate the request, and if the CSRF token is missed or incorrect, the server rejects the request.</br>
+**How the request should look like**</br>
+![image](https://github.com/user-attachments/assets/e3c2eb23-a648-48a8-a0f3-70c55a3f5e86) </br>
+
