@@ -81,7 +81,19 @@ To bypass this type of protection:
         1. If the application is looking for a string `example.com` in the referer header to consider the request as legitimate, you can bypass this protection by placing the target's domain name as a subdomain such as `example.com.attacker.com` or by placing the it as a path name such as `attacker.com/example.com` (you can create this by creating a file name with the name of the target's domain and host your HTML page here.
  6. Bypassing CSRF protection by using XSS </br>
 XSS vulnerabilities allow attackers to steal CSRF tokens and then craft forged requests
+# Escalating the Attack
+1. Leak sensitive user information
+   Some applications disclose user info according to user preferences, if we can user CSRF to change these settings we will be able to reveal sensitive information;</br>
+   <mark> Example: </mark> let's say we have a web application that sends monthly billing information to the user's email address, this info includes phone number, street address and credit card info. If application/ endpot is prone to CSRF attacks, the attacker can change the email address to his own,and then he will be able to get this information.
+2. Create stored self-XSS by using CSRF
+Assume we have this subdomain `finance.example.com` which is responsible for creating nicknames for user banking accounts. And the account nickname field is vulnerable to self-XSS which means that only the users themselves can trigger this vulnerability. We can change the nickname via this endpoint `/change_account_nickname` and by sending the nickname is the post request. If this request is vulnerable to CSRF (or bypass the protection),we can inject a malicious javascript code in the field instead of the nickname that will be stored in the database, so every time the user visits their dashboards, the XSS will be triggered. </br>
+A request like this will succeed (we bypassed CSRF protection by removing the CSRF tokens)</br>![image](https://github.com/user-attachments/assets/e188d3eb-605b-4ab5-9dd1-b2bb9dd5c3e1)</br>![image](https://github.com/user-attachments/assets/0e6a1fa3-75c8-4d31-a248-a3221b2f7f86)
+</br>
 
+
+
+
+   
 
  
 
