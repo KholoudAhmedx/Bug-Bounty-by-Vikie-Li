@@ -79,8 +79,8 @@ To bypass this type of protection:
         This works because the application might have logic error such as validating the referer only if it exists, if not it executes the request.
      2. You can bypass the logic check used to validate the referer URL
         1. If the application is looking for a string `example.com` in the referer header to consider the request as legitimate, you can bypass this protection by placing the target's domain name as a subdomain such as `example.com.attacker.com` or by placing the it as a path name such as `attacker.com/example.com` (you can create this by creating a file name with the name of the target's domain and host your HTML page here.
-        
-
+ 6. Bypassing CSRF protection by using XSS </br>
+XSS vulnerabilities allow attackers to steal CSRF tokens and then craft forged requests
 
 
  
