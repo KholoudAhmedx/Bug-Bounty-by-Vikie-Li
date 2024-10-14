@@ -72,7 +72,16 @@ So entering bogus tokens in both values will still be considered as legitimate s
 2. Then, you’d execute the CSRF with the same CSRF token that you chose as the cookie
  >[!Note]
  >Generally, you shouldn’t have the power to change another user’s cook-ies. But if you can find a way to make the victim’s browser send along a fake cookie, you’ll be able to execute the CSRF</br>
- 
+
+5. Bypass CSRF referer header check
+To bypass this type of protection: 
+     1. you can try to remove the referer header by using `<meta>` tag to the page from where you are hosting the request</br>![image](https://github.com/user-attachments/assets/73b817ef-b04c-4514-9e80-0a035c75f150)</br>
+        This works because the application might have logic error such as validating the referer only if it exists, if not it executes the request.
+     2. You can bypass the logic check used to validate the referer URL
+        1. If the application is looking for a string `example.com` in the referer header to consider the request as legitimate, you can bypass this protection by placing the target's domain name as a subdomain such as `example.com.attacker.com` or by placing the it as a path name such as `attacker.com/example.com` (you can create this by creating a file name with the name of the target's domain and host your HTML page here.
+        
+
+
 
  
 
