@@ -59,6 +59,21 @@ Imagine CSRF vulnerability exists on requests that handle user finances, like ac
 3. Bypassing CSRF tokens stored on the server</br>
 <mark>Just because the website uses CSRF tokens, does it mean it validates them properly.</mark></br>
  If the site is not validating CSRF tokens properly, we can try different ways to acheive CSRF attack by modifying the malicious HTML page a little;</br>
-      1. gds
+      1. Try deleting the token parameter or sending a blank token parameter; this might work because of the common applications' logic mistakes
+          1. Applications sometimes check the validty of the token only if the token exists or is not blank; if not it will execute the action</br>![image](https://github.com/user-attachments/assets/40d19425-61c6-42d8-833f-7d9d849c1d1a)</br>
+      2. Try submitting the request with another session's CSRF token; this might work because of the common applications' logic mistakes
+          1. Some applications check only if the token is valid, without confirming that is belong to the current user</b>![image](https://github.com/user-attachments/assets/b3088da5-ac89-453d-9e78-f96a4516660f)</br>![image](https://github.com/user-attachments/assets/e1fba533-911e-411a-b62b-9930c793f3eb)</br>
+4. Bypass double-submit CSRF tokens</br>
+In this technique, the state-changing request includes the CSRF tokens as both a cookie and a POST request parameter</br>![image](https://github.com/user-attachments/assets/9860d5ae-9210-4397-82ae-1d951d3ee3d9) </br> And the double-submit system checks only if these tokens are the same, then the request is considered legitimate regardless of whether they are valid tokens or not.</br>
+So entering bogus tokens in both values will still be considered as legitimate since the server has no records of the valid tokens as it doesn't check the validty of the tokens once it receives it</br>
+
+**Attack will happen in two steps:** </br>
+1. You’d use a session-fixation technique to make the victim’s browser store whatever value you choose as the CSRF token cookie</br>
+2. Then, you’d execute the CSRF with the same CSRF token that you chose as the cookie
+ >[!Note]
+ >Generally, you shouldn’t have the power to change another user’s cook-ies. But if you can find a way to make the victim’s browser send along a fake cookie, you’ll be able to execute the CSRF</br>
+ 
+
+ 
 
 
