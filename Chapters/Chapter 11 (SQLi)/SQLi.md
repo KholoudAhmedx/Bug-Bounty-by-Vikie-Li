@@ -23,7 +23,7 @@ Attackers can inject characters that are special to the SQL to mess with the log
          ' closes the value of the username and ; indicates the end of the query and -- is used to comment the rest of the query.</br>
    and now the query will be as if the user requests the id of the admin without providing the password which causes authentication bypassing:</br>
    ![image](https://github.com/user-attachments/assets/7f79985c-3b6a-4abc-a1c8-f71cbe8ee424)</br>
-   Another example, is when attacker accesses data he is not allowed to by injecting a payload like this: </br>
+2. Another example, is when attacker accesses data he is not allowed to by injecting a payload like this: </br>
    ![image](https://github.com/user-attachments/assets/592b5ac8-e7a6-4ad3-8c0e-a21eb101142d)</br>
    This request is used to retreive emails of the user by giving their username and access key, but here the attacker uses SQLi to retreive data from another table, which is in this case the usernames and passwords.</br>
    The SQL request is now turned to be this one:</br>
