@@ -1,5 +1,12 @@
 # SQL Injection (SQLi)
 SQL injection is an attack in which the attacker executes arbitrary SQL commands on an application's database by supplying malicious input inserted into the SQL statement. 
+## What an Attacker Can Acheive with SQLi
+Attacker can
+1. Bypass authentication
+2. Data leaks
+3. Tampering of database
+4. RCE
+
 # Mechanisms
 SQLi happens when the attacker injects code (sql commands) in the sql statements that the target application uses to access its DB, thereby executing whatever SQL code the attacker wants. 
 1. Attackers can inject characters that are special to the SQL to mess with the logic of the query
