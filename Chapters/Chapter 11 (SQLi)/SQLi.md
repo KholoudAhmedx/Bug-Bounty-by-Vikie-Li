@@ -12,9 +12,10 @@ SQLi happens when the attacker injects code (sql commands) in the sql statements
 | First Order SQLi       | Second Order SQLi           |
 |--------|------------|
 | Happens when application uses user-submitted input directly into the SQL query | Happens when user input gets stored into a database, then retrieved and used unsafely in a SQL query
-
-1. Attackers can inject characters that are special to the SQL to mess with the logic of the query</br>
-  For example, the attacker can send a payload like this in the username field while trying to login:</br>
+ 
+Attackers can inject characters that are special to the SQL to mess with the logic of the query</br>
+### Examples on First Order SQLi
+1. The attacker can send a payload like this in the username field while trying to login:</br>
   ![image](https://github.com/user-attachments/assets/d43e3fb8-4e5a-4293-b2f8-93b39c508739) </br>
   and the query will now be: </br>
   ![image](https://github.com/user-attachments/assets/b656954a-d0c7-4fc0-8692-cb60498c2a8a) </br>
@@ -28,8 +29,16 @@ SQLi happens when the attacker injects code (sql commands) in the sql statements
    The SQL request is now turned to be this one:</br>
    ![image](https://github.com/user-attachments/assets/4bd540fc-d4eb-4cea-ae5c-5a21e65252ec)</br>
    >[!Note]
-   >The original SQL request was `SELECT Id FROM emails WHERE username=vikie AND accesskey='ZB6w0YLjzvAVmp6zvr';`
-2. 
+   >The original SQL request was `SELECT Id FROM emails WHERE username=vikie AND accesskey='ZB6w0YLjzvAVmp6zvr';` </br>
+### Examples on Second Order SQLi
+Imagine a website where users can create new accounts by providing their usernames and passwords by sending a request like this to the server:</br>
+![image](https://github.com/user-attachments/assets/39ff51df-8e8d-414f-891b-ffa6b3d179f4)</br>
+This request submits the username vickie' UNION SELECT Username, Password FROM Users;-- and the password password123 to the `/signup` endpoint.</br>
+And assuming the application handles the userinput properly using protection techniques and now the username is stored in the database. Now imagine there's another endpoint `/emails` where users can retrieve their emails by sending a request to `/emails` endpoint, and if they don't include their username, the request will get the username of the logged in user automatically and the corresponding sql query is:</br>
+![image](https://github.com/user-attachments/assets/dc8767a2-2c88-4311-8be6-8368fff3b219)</br>
+So when the server tries to retrieve the username of the logged in user, in our case `vickie' UNION SELECT Username,
+Password FROM Users;--`, the sql code will be executed, returning all useranmes and passwords of users as email titles and bodies in the HTTP response.</br>
+
 
 
 
