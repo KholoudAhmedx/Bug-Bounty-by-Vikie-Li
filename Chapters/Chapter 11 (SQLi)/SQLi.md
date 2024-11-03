@@ -9,6 +9,10 @@ Attackers can
 
 # Mechanisms
 SQLi happens when the attacker injects code (sql commands) in the sql statements that the target application uses to access its DB, thereby executing whatever SQL code the attacker wants. 
+| First Order SQLi       | Second Order SQLi           |
+|--------|------------|
+| Happens when application uses user-submitted input directly into the SQL query | Happens when user input gets stored into a database, then retrieved and used unsafely in a SQL query
+
 1. Attackers can inject characters that are special to the SQL to mess with the logic of the query</br>
   For example, the attacker can send a payload like this in the username field while trying to login:</br>
   ![image](https://github.com/user-attachments/assets/d43e3fb8-4e5a-4293-b2f8-93b39c508739) </br>
@@ -25,8 +29,7 @@ SQLi happens when the attacker injects code (sql commands) in the sql statements
    ![image](https://github.com/user-attachments/assets/4bd540fc-d4eb-4cea-ae5c-5a21e65252ec)</br>
    >[!Note]
    >The original SQL request was `SELECT Id FROM emails WHERE username=vikie AND accesskey='ZB6w0YLjzvAVmp6zvr';`
-
-   
+2. 
 
 
 
