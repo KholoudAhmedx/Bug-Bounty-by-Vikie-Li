@@ -53,5 +53,11 @@ When injecting user input into the SQL query, user input will be sent along with
 ![image](https://github.com/user-attachments/assets/44ea13f3-4a6b-4299-84ab-bfa7b159683b)</br>
 After the parameters are inserted into the final query, the query will not be parsed and compiled again, so the database will distinguish between the code part and the data part of the SQL query.
 # Hunting for SQLi 
+A classification for SQL injections that helps in exploiting them is as the following, SQLi is classified into:</br>
+1. Classic SQLi
+2. Blind SQLi </br>
 
-
+**A common way** to test for SQL injection -> insert singl quote (') into every user input in the application, and if the application is protected against SQLi, it should not trigger a database error, or alter the logic of the database query.</br>
+**Another general way** to test for SQL injection -> fuzzing, where you sumbit specifically designed sql injection payloads to the application and monitor the server's respone.</br>
+**Otherwise**, submit payloads designed to trigger a difference in database response, time delay, or a database error. </br>
+### 1. Look for Classic SQLi
