@@ -38,7 +38,15 @@ And assuming the application handles the userinput properly using protection tec
 ![image](https://github.com/user-attachments/assets/dc8767a2-2c88-4311-8be6-8368fff3b219)</br>
 So when the server tries to retrieve the username of the logged in user, in our case `vickie' UNION SELECT Username,
 Password FROM Users;--`, the sql code will be executed, returning all useranmes and passwords of users as email titles and bodies in the HTTP response.</br>
+# Prevention
+1. Use prepared statements (also called parameterized quieries)
+2. 
 
+**Why prepared statements make SQLi virtually impossible?**</br>
+To understand why, we need to go through the life of a SQL query. SQL query is a program that when arrives at the SQL server, it gets compiled, parsed and optimized. Then the server will execute the query, and return the results as shown below:
+</br>![image](https://github.com/user-attachments/assets/91a4f084-6c11-4d96-b0c4-9c1bd26805f0)</br>
+When injecting user input into the SQL query, user input will be sent along with the query to the SQL server and and then gets compiled, parsed and optimized, meaning that it will be interpreted by the server as code if this user input is malicious and contains sql statement. </br>
+![image](https://github.com/user-attachments/assets/646e7249-2849-475b-a886-75e4385f326c)</br>
 
 
 
