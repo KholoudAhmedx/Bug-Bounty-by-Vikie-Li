@@ -115,6 +115,7 @@ victim.com/output.txt` </br>
 >[!NOTE]
 >This technique is also useful to detect second order SQL injection. </br>
 >We upload to the /var/www/html directory because it’s the default web directory for many Linux web servers. </br>
+### 4. Look for NoSQL injection
 
 
 
