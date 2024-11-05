@@ -80,10 +80,22 @@ Here, the query will force the database to convert the password of the admin to 
 
 ### 2. Look for Blind SQLi
 >[!Note] Blind SQLi is harder to find and exploit.</br>
+
 Blind SQLi happens -> when attacker cannot extract information directly from the database because the application doesn't return SQL data or descriptive error messages, therefore, the attacker inferes information by sending SQLi payloads to the server and monitor the subsequent server behavoir.</br>
-Blind SQLi has two types:
+**Blind SQLi has two types:**
 1. Boolean based -> attacker injects test conditions into the SQL query that will return either true or false and based on these responses, the attacker can slowely infere the contents of the database. 
 2. Time based -> similar to Boolean based, but instead of relying on visual clue in the web application, the attacker relies on the response-time difference caused by different SQLi injection payloads.
 ##### Example on Boolean Based SQLi
+Assume we have a website that displays a banner to premium users that says "Welcome, premium" in their home pages. This banner is displayed by the server if the id of the user is in the permiumUsers table in the database, and if not, then no banner is displayed.</br>
+The corresponding SQL query for a request that contains the id of the user, is as the following:</br>
+![image](https://github.com/user-attachments/assets/0fd3afa3-153d-484f-8b64-1739a97a3edb)</br>
+If `user_id=2` is not one of the premium users, then no banner is displayed. What if the attacker injects a payload like this one below:</br>
+![image](https://github.com/user-attachments/assets/b64c1d29-821c-480e-a95e-b6e68c0d7557) </br>
+If the first condition is false (`user_id =2` is not a premium user), and since there's `UNION` operator used, then if the second condition is true, the overall statement will evaluate to true, and the server will return a banner message that this is a premium user.</br>
+Looking at the second condition, `SELECT id FROM Users Where Username='admin' AND SUBSTR(password, 1,1) = 'a';--`, this statement will return true, only if the user is the admin AND the first character of his passowrd is `a`, which means, the attacker can reveal the password of the admin by injecting a payload like this that bruteforces the password. 
+>[!Note]
+>`SUBSTR(STRING, POSITON, LENGHT)` extracts a substring of a specified lenght in the specified postion.
+
+
 
 #### Example on Time Based SQLi
