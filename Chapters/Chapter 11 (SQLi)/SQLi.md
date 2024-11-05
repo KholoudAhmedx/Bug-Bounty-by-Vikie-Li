@@ -40,7 +40,9 @@ So when the server tries to retrieve the username of the logged in user, in our 
 Password FROM Users;--`, the sql code will be executed, returning all useranmes and passwords of users as email titles and bodies in the HTTP response.</br>
 # Prevention
 1. Use prepared statements (also called parameterized quieries)
-2. 
+2. Use allowed list for allowed values
+   1. For example, if the application allows users to retreive their emails by providing their usernames and accesskeys and allows them to order their retrieved emails by a specific column (data column for example), the application can define list of allowed values (columns) the user can order their retrieved emails by, instead of allowing arbitrary input from the user;; (Allow Sender, Date and Title) (Reject all other user-input value).</br>![image](https://github.com/user-attachments/assets/ee5c19d1-250b-4319-beb0-1c4002cc1200)</br>
+3. Sanitize and escape user input (not that strict because it it easily to miss special chars that attacker can use to construct SQLi attack)
 
 ### Why prepared statements make SQLi virtually impossible?
 To understand why, we need to go through the life of a SQL query. SQL query is a program that when arrives at the SQL server, it gets compiled, parsed and optimized. Then the server will execute the query, and return the results as shown below:
