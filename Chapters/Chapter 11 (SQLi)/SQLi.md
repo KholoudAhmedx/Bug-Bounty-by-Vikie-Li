@@ -61,3 +61,20 @@ A classification for SQL injections that helps in exploiting them is as the foll
 **Another general way** to test for SQL injection -> fuzzing, where you sumbit specifically designed sql injection payloads to the application and monitor the server's respone.</br>
 **Otherwise**, submit payloads designed to trigger a difference in database response, time delay, or a database error. </br>
 ### 1. Look for Classic SQLi
+>[!Note] Classic SQLi is the easiest to find and exploit.</br>
+In Classic SQLi -> results are returned directly to the attacker in the HTTP respone.</br>
+Classic SQLi is divied into two types:
+>Union based SQLi -> attacker uses UNION operator to concatenate the results of another query into web application response.
+>Error based SQLi -> attacker triggers an error in the database to collect information from the returned error message.
+#### Example on Union based SQLi
+An attacker injects another query using UNION operator to retrieve usernames and passwords of all users as an email title and body:</br>
+![image](https://github.com/user-attachments/assets/febea087-3945-43fe-8743-d250b8308980) </br>
+The returned HTTP response is as the following:</br>
+![image](https://github.com/user-attachments/assets/37bb90e4-d83d-4125-856b-c2c6cb3c0726)</br>
+
+#### Example on Error based SQLi
+An attacker injects CONVERT keyword to trigger and error in the database and reveal information from the returned error, where CONVERT takes two parms CONVERT(VALUE, FORMAT), and converts the value to the given format. For example: </br>
+![image](https://github.com/user-attachments/assets/d558b236-eb32-4bfc-84bc-a872f4ce75d1)</br>
+Here, the query will force the database to convert the password of the admin to a date format which returns the following error that reveals password of the admin:</br>
+![image](https://github.com/user-attachments/assets/edc926b1-1241-4c48-bc4a-c2e85c88683f)
+
