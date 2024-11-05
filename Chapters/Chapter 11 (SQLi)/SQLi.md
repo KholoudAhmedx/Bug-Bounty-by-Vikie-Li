@@ -108,11 +108,14 @@ Assume a website doesn't use user input in a SQL query right away-> use user inp
 
 So another way to do it, is to :
 MAKE DATABASE STORE INFO SOMEWHERE WHEN IT RUNS THE UNSAFE SQL QUERY.</br>
-`SELECT ... INTO` statement can be used to save the output of the query into an output file in the specified path.</br>
+`SELECT ... INTO` statement can be used to save the output of the query into an output file in the specified path on the victim server that you can access then by visiting this URL `https://
+victim.com/output.txt` </br>
 **Example:** </br>
 ![image](https://github.com/user-attachments/assets/a8cfec62-2dc6-4069-af4d-0f27ed72e7b1) </br>
 >[!NOTE]
->This technique is also useful to detect second order SQL injection.</br>
+>This technique is also useful to detect second order SQL injection. </br>
+>We upload to the /var/www/html directory because it’s the default web directory for many Linux web servers. </br>
+
 
 
 
