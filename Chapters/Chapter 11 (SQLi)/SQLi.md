@@ -97,5 +97,22 @@ Looking at the second condition, `SELECT id FROM Users Where Username='admin' AN
 >`SUBSTR(STRING, POSITON, LENGHT)` extracts a substring of a specified lenght in the specified postion.
 
 
-
 #### Example on Time Based SQLi
+ Take the same example as before, but instead of displaying a banner for permium users, the web application doesn't display anything special to premium users, so we need another way to test for injection. We can trigger time delay by using SQL query, if the time delay occurs, we will know the query worked correctly. The SQL query looks like this: </br>![image](https://github.com/user-attachments/assets/d743ade7-d21f-4299-8179-ba7e4cdb482d)
+</br>
+If the admin's password starts with letter 'a', then the query will instruct the database to sleep for 10 seconds. Otherwise, nothing will happen.</br>
+### 3. Exfiltrate Information by Using SQL injections
+Assume a website doesn't use user input in a SQL query right away-> use user input unsafely in a backend operation, therefore:</br>
+1. You have no way to retrieve results of injection in http response
+2. You have no way to infere query results by observing server behavior </br>
+
+So another way to do it, is to :
+MAKE DATABASE STORE INFO SOMEWHERE WHEN IT RUNS THE UNSAFE SQL QUERY.</br>
+`SELECT ... INTO` statement can be used to save the output of the query into an output file in the specified path.</br>
+**Example:** </br>
+![image](https://github.com/user-attachments/assets/a8cfec62-2dc6-4069-af4d-0f27ed72e7b1) </br>
+>[!NOTE]
+>This technique is also useful to detect second order SQL injection.</br>
+
+
+
