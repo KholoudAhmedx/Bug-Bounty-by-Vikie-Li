@@ -78,3 +78,12 @@ An attacker injects CONVERT keyword to trigger and error in the database and rev
 Here, the query will force the database to convert the password of the admin to a date format which returns the following error that reveals password of the admin:</br>
 ![image](https://github.com/user-attachments/assets/edc926b1-1241-4c48-bc4a-c2e85c88683f)
 
+### 2. Look for Blind SQLi
+>[!Note] Blind SQLi is harder to find and exploit.</br>
+Blind SQLi happens -> when attacker cannot extract information directly from the database because the application doesn't return SQL data or descriptive error messages, therefore, the attacker inferes information by sending SQLi payloads to the server and monitor the subsequent server behavoir.</br>
+Blind SQLi has two types:
+1. Boolean based -> attacker injects test conditions into the SQL query that will return either true or false and based on these responses, the attacker can slowely infere the contents of the database. 
+2. Time based -> similar to Boolean based, but instead of relying on visual clue in the web application, the attacker relies on the response-time difference caused by different SQLi injection payloads.
+##### Example on Boolean Based SQLi
+
+#### Example on Time Based SQLi
