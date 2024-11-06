@@ -62,6 +62,7 @@ A classification for SQL injections that helps in exploiting them is as the foll
 **Otherwise**, submit payloads designed to trigger a difference in database response, time delay, or a database error. </br>
 ### 1. Look for Classic SQLi
 >[!Note] Classic SQLi is the easiest to find and exploit.</br>
+
 In Classic SQLi -> results are returned directly to the attacker in the HTTP respone.</br>
 Classic SQLi is divied into two types:
 >Union based SQLi -> attacker uses UNION operator to concatenate the results of another query into web application response.
@@ -116,7 +117,19 @@ victim.com/output.txt` </br>
 >This technique is also useful to detect second order SQL injection. </br>
 >We upload to the /var/www/html directory because it’s the default web directory for many Linux web servers. </br>
 ### 4. Look for NoSQL injection
+*NoSQL* is another type of databases that uses different structures rather than tables to store information such as graphs and key-value pairs.</br>
+NoSQL databases are: MongoDB, Apache CouchDB.</br>
 
+**Example of an attack tthat can be launched in MongoDB database:**</br>
+1. Let's say you have an application that logs in users by taking advantage of `Users.find()` that returns list of users that meet certain criteria, and the application is inserting user input directly into the database        like this `Users.find({username:$username, password:$password})` where `$username` and `$password` are user inputs. The attacker can retrieve the password of the admin user by injecting `{$ne:""}` payload into the           password field, where it returns password that doesn't match a specified value (in this case, empty string), `Users.find({username:'admin', password:{$ne:""}})`, will login as admin. </br>
 
+2. Attackers can also execute JS code on the server</br>
+  ![image](https://github.com/user-attachments/assets/13a2c05f-a10d-4985-b5e2-c30f580e8dda)</br>
+  `$where` in MongoDB allows execution of arbitrary JS, and assume the applications allows unvalidated userinput inside this function, the attacker can inject a paload like this that launches a DoS attack
+</br>![image](https://github.com/user-attachments/assets/b3f107b6-3edf-4909-a2ac-862a64b62102)</br>
 
+**Process of looking for NoSQL injection is similar to this of SQL>>** insert special characters into user-input field and look for errors and other anomalies.</br>
+**To prevent against NoSQL injections:** </br>
+1. validate user input and avoid dangerous database functionalies
+2. Follow the principle of least privilege when assigning rights to applications
 
