@@ -147,5 +147,7 @@ NoSQL databases are: MongoDB, Apache CouchDB.</br>
    ![image](https://github.com/user-attachments/assets/c4ca3b5f-2444-412a-9ea7-b514ebaf22c0) </br>
    The attacker took advantage of the SQL injection vulnerability to upload this `<? system($_REQUEST['cmd']; ?>` php code to a location he can access on the server through the URL and provide whatever command he wants to      execute on the server by visiting `http://target.com/shell.php?cmd=COMMAND`. 
 
+>[!Note]
+> Testing for SQL injection manually isn't scalable, therefore, use `sqlmap` tool to automate the entire process from injection discovery to exploitation.
 
 
