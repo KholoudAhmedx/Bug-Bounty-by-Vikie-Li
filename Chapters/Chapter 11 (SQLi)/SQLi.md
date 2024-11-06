@@ -132,4 +132,20 @@ NoSQL databases are: MongoDB, Apache CouchDB.</br>
 **To prevent against NoSQL injections:** </br>
 1. validate user input and avoid dangerous database functionalies
 2. Follow the principle of least privilege when assigning rights to applications
+# Escalate the Attack
+1. Learn about the database; learn about the structure and database software.How?</br>
+   Attempt some trial-and-error SQL queries to determine the database version >>> `@@version` Microsoft SQL, `version()` PostgreSQL and so on.. </br>
+   Example:</br> ![image](https://github.com/user-attachments/assets/863374b7-ce12-4b9d-a5d8-9fa6726c221b) </br>
+   >[!Note]
+   >The 1 in `UNION SELECT 1, @@version` is neccessary because for the UNION statement to work, number of columns need to be similar in both SELECT statements. </br>
+   1. After knowning the type of database you are working with, scope it further to see what it contains; Check table names, column names and so on;</br>
+   Example:</br>
+   ![image](https://github.com/user-attachments/assets/576ae6be-3162-49ea-be77-c99bd3b872f9) </br>
+   2. Start targeting tables to exfiltrate data that interest you
+4. Attempt to gain a webshell on the server </br>
+   Example:</br>
+   ![image](https://github.com/user-attachments/assets/c4ca3b5f-2444-412a-9ea7-b514ebaf22c0) </br>
+   The attacker took advantage of the SQL injection vulnerability to upload this `<? system($_REQUEST['cmd']; ?>` php code to a location he can access on the server through the URL and provide whatever command he wants to      execute on the server by visiting `http://target.com/shell.php?cmd=COMMAND`. 
+
+
 
