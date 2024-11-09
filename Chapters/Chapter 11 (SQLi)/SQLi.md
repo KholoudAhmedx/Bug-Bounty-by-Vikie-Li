@@ -72,6 +72,8 @@ An attacker injects another query using UNION operator to retrieve usernames and
 ![image](https://github.com/user-attachments/assets/febea087-3945-43fe-8743-d250b8308980) </br>
 The returned HTTP response is as the following:</br>
 ![image](https://github.com/user-attachments/assets/37bb90e4-d83d-4125-856b-c2c6cb3c0726)</br>
+>[!Note]
+> Two conditions must be met to launch UNION based SQLi attacks>> number of columns returned from the original query matches number of columns returned from the injected query // columns returned are of compatiable type.</br>
 
 #### Example on Error based SQLi
 An attacker injects CONVERT keyword to trigger and error in the database and reveal information from the returned error, where CONVERT takes two parms CONVERT(VALUE, FORMAT), and converts the value to the given format. For example: </br>
