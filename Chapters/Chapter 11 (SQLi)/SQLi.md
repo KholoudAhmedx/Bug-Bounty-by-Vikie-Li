@@ -86,7 +86,7 @@ Here, the query will force the database to convert the password of the admin to 
 
 Blind SQLi happens -> when attacker cannot extract information directly from the database because the application doesn't return SQL data or descriptive error messages, therefore, the attacker inferes information by sending SQLi payloads to the server and monitor the subsequent server behavoir.</br>
 **Blind SQLi has two types:**
-1. Boolean based -> attacker injects test conditions into the SQL query that will return either true or false and based on these responses, the attacker can slowely infere the contents of the database. 
+1. Boolean based -> attacker injects test conditions into the SQL query that will return either true or false and based on these responses, the attacker can slowely infere the contents of the database.// **The response can be a change in the server's behavoir or a generic error it returns such as Internal Server Error based on whether the condition returns true or false**.  
 2. Time based -> similar to Boolean based, but instead of relying on visual clue in the web application, the attacker relies on the response-time difference caused by different SQLi injection payloads.
 ##### Example on Boolean Based SQLi
 Assume we have a website that displays a banner to premium users that says "Welcome, premium" in their home pages. This banner is displayed by the server if the id of the user is in the permiumUsers table in the database, and if not, then no banner is displayed.</br>
