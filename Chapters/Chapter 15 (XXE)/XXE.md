@@ -36,7 +36,17 @@ For example, assume we have an application that allows users to upload their own
 1. Application accepts user-supplied xml input and uses a misconficured or older xml parser.
 2. Application passes user-input into DTDs which is then parsed by xml parser to read local or remotet file system files.</br>
 # Prevention
+Prevention mechanisms can follow multiple approaches:</br>
+1. Limit XML parser capabilities
+    1. Disable DTD processing on the XML parser if possible -> since DTD processing is a requirement for XXEs, then disabling it, prevents against this attack
+    2. Disable external entities, parameter entities and inline DTDs(included in XML document)
+    3. Limit XML parser's parse time and parse depth -> to prevent XXEs-Dos attacks 
+>[!Note] Mechanisms for disabling DTD processing depends on the type of parser being used.</br>
 
-
-
+2. Input validation
+    1. Create an allowlist for user-supplied values that are passed in XML documents
+    2. Sanitize hostile data within XML documents, headers or nodes
+    3. Use less complex data formats like JSON whenever possible
+3. Disallow outbount network traffic -> in case of blind XXEs because attacker can exfiltrate data by sending an outbound request to the attacker's server with the data stolen unlike in the case of classic XXEs, the data is returned in the HTTP response
+4. Keep all dependencies in user by application or operating system up to date -> since many XXEs are introduced by the application's dependencies instead of its custom source code
 
