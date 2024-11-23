@@ -49,4 +49,31 @@ Prevention mechanisms can follow multiple approaches:</br>
     3. Use less complex data formats like JSON whenever possible
 3. Disallow outbount network traffic -> in case of blind XXEs because attacker can exfiltrate data by sending an outbound request to the attacker's server with the data stolen unlike in the case of classic XXEs, the data is returned in the HTTP response
 4. Keep all dependencies in user by application or operating system up to date -> since many XXEs are introduced by the application's dependencies instead of its custom source code
+# Hunting for XXE
+Look for functionalities where:
+1. the application receives direct XML input
+2. the application receives input that is inserted into XML documents that the app parses</br>
 
+#### 1. Find XML data entry points
+Applications may use XML data to transfer information within HTTP messages as show below.</br>
+![image](https://github.com/user-attachments/assets/81099945-d2c1-4cca-b77c-a0d659836311)</br>
+1. Find XML-like documents in HTTP messages as the prevoius example or look for XML signatures such as  `<?xml`.
+    1. AND look for encoded XML data in the application (might be URL/base-64 encoded) by decoding any blocks of data that looks suspicious
+2. Look for file-uploads features because XML forms the basis of many common file types (XML, HTML, DOCXPPTX, XLSX, GPX, PDF, SVG,..) + metadata embedded within images like GIF, PNG and JPEG are all based on XML>> if you are allowed to upload these file types, you can smuggle XML input to these files and if the application parses XML, you might be able to access sensitive data 
+3. Instead of looking for locations where the application accepts XML data by default, force the application to parse XML data
+   On endpoints that takes other formats of input, you can modify the content-type header to be one of the following and then try to include XML data in your request body:</br>![image](https://github.com/user-attachments/assets/96fd5264-61b6-4d0f-83ff-75cf2c10d407)</br>
+4. Look for any user-submitted data that the application embeds into an XML-document on the server</br>
+#### 2. Test for classic XXE
+Try sending trial-and-error XXE payloads, and if you are getting results from the parser, then you maybe able to launch classic XXE attacks,which means you can read the leaked files directly from the server's response.</br>
+1. Check whether XML entities are interpreted by inserting XML entities into the XML input and see if it loads properly as shown below</br>![image](https://github.com/user-attachments/assets/19338ddd-7c14-4657-922a-227c6e57dbc3)</br>
+2. Test whether `SYSTEM` keyword is usable by trying to load local file as shown below</br>![image](https://github.com/user-attachments/assets/4fe9cdd7-6527-40c7-a65c-7182d6de4628)</br>
+3. Test with `PUBLIC` keyword if system does not work, but you need additional id (The parser uses this to generate an alternate URL for the value of the entity) </br>![image](https://github.com/user-attachments/assets/6fe85528-25f1-4acf-a7c6-bf11538b8eea)</br>
+4. Try to extract some common system files
+#### 3. Test for blind XXE
+If the server takes XML input but does not return results in the response, you can test for blink XXE by making the server send a request to the attacker's server with the exfiltrated data.</br>
+1. Make sure the server can make outbound connections by making a request to your server (you can make a callback listener)
+2. Try make the external entity load a resource on your machine
+3. Test with ports 80 and 443 to bypass firewall detection on target because it might not allow outbound connections on other ports and then You can then search the access logs of your server and look for a request
+to that particular file (typically a GET request of the requested file)</br>![image](https://github.com/user-attachments/assets/184051f7-beab-435f-8b56-81f60f8cbf4a)</br>
+4. Once confirmed that you can extract files, extract sensitive files from the server</br>
+ 
