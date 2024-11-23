@@ -15,7 +15,7 @@ XML is used in multiple web functionalities such as:</br>
 - Authentication
 - Transfering HTTP requests from client to server and back</br>
 
-## Document Type Definition (DDT)
+## Document Type Definition (DTD)
 DTD defines the structure of XML document and the data it contains. </br>
 Example of DTD: `<!DOCTYPE example[!ENTITY file "Hello!"]>` where example is the root element for which the DTD applies.</br>
 `[..]` contains the internal DTD subset which defines entities, elements or attributes defined in the doc. </br> 
@@ -27,5 +27,16 @@ XML docs can also use external entities to access either local or remote content
 
 **Example of remote content:** </br>
 ![image](https://github.com/user-attachments/assets/e31a0bd9-c227-4f21-8307-1ab788cbdb2f)</br>
+### What's the vulnerability in this?
+For example, assume we have an application that allows users to upload their own xml document and if the application is using an older or misconfigured xml parser, that allows user-defined DTD or user-input within the DTD, malicious users can upload a document like the one below to read sensitive files on the server through external entities.</br>
+![image](https://github.com/user-attachments/assets/53103ef4-5a14-4699-ab32-3df91281885b)</br>
+>[!Note] External Entity is just a link to other resources such as file.</br>
+
+**That means XXEs happen when:**
+1. Application accepts user-supplied xml input and uses a misconficured or older xml parser.
+2. Application passes user-input into DTDs which is then parsed by xml parser to read local or remotet file system files.</br>
+# Prevention
+
+
 
 
