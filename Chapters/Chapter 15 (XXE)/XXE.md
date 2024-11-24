@@ -98,7 +98,7 @@ To test for XInclude attack, insert the following payload to see if the request 
 # Escalating the Attack 
 You can use XXEs to:
 1. Access and exfiltrate system files, source code and list directories on local machines (READ FILES)// To read local files use this scheme `file://` followed by the path of the file you are reading
-2. Perform SSRF attacks to port-scan target's network, read files on the network & access resourced hidden behind firewall
+2. Perform SSRF attacks to port-scan target's network, read files on the network & access resourced hidden behind firewall</br>
     Example 1:</br>
     ![image](https://github.com/user-attachments/assets/4f9ca310-459c-4db4-a244-4ecf75b6dd85)</br>  
     Example 2: (returns AWS metadata)</br>
