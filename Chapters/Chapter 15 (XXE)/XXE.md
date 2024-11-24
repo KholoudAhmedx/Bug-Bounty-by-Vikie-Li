@@ -89,6 +89,14 @@ Microsoft docs (.docx), PowerPoint presentations (.pptx), and Excel worksheets (
 2. Insert your payload inside any of the unzipped xml files, for example inside `/word/document.xml`
 3. Repack (zip) the archives into thte .docs, .xlxs, or .pptx formats again, and you can do this by running a `zip` command as shown below</br>
 ![image](https://github.com/user-attachments/assets/296dbc25-ba62-4abe-8c90-403a3ab9352a)</br>
+#### 5. Use XInclude Attacks
+If the application is taking a user-input and insert it into an XML document, you can use XInclude attacks to access sensitive files.</br>
+`XInclude` is a XML feature that builds a separate XML document form a single xml tag named `xi:include`. </br>
+To test for XInclude attack, insert the following payload to see if the request file is returned in the response.</br>
+![image](https://github.com/user-attachments/assets/720107b6-aab8-4f62-9953-8963d6fce56d)</br>
+
+# Escalating the Attack 
+
 
 
 
