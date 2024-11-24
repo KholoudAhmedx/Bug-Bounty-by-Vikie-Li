@@ -75,5 +75,20 @@ If the server takes XML input but does not return results in the response, you c
 2. Try make the external entity load a resource on your machine
 3. Test with ports 80 and 443 to bypass firewall detection on target because it might not allow outbound connections on other ports and then You can then search the access logs of your server and look for a request
 to that particular file (typically a GET request of the requested file)</br>![image](https://github.com/user-attachments/assets/184051f7-beab-435f-8b56-81f60f8cbf4a)</br>
-4. Once confirmed that you can extract files, extract sensitive files from the server</br>
-   0
+4. Once confirmed that you can extract files, you can then try to extract files by using the following techniques
+#### 4. Embed XXE payloads in different file types
+**Example 1: Insert XXE payload into SVG image** </br>
+1. Open SVG image as text file
+2. Insert the payload as shown below
+    ![image](https://github.com/user-attachments/assets/97239e30-b628-431c-ad6f-5ac857d6ca9e)</br>
+    
+**Example 2: Insert XXE payload into file types .docx, .xlxs, and .pptx** </br>
+Microsoft docs (.docx), PowerPoint presentations (.pptx), and Excel worksheets (.xlxs) are archive files that contain XML files, so we can insert XXE payloads into them as well.</br>
+1. Unzip the document file, you should see few folders containing xml files as shown below</br>
+![image](https://github.com/user-attachments/assets/5dd43569-c984-4111-8e59-acf77ed1102e) </br>
+2. Insert your payload inside any of the unzipped xml files, for example inside `/word/document.xml`
+3. Repack (zip) the archives into thte .docs, .xlxs, or .pptx formats again, and you can do this by running a `zip` command as shown below</br>
+![image](https://github.com/user-attachments/assets/296dbc25-ba62-4abe-8c90-403a3ab9352a)</br>
+
+
+
