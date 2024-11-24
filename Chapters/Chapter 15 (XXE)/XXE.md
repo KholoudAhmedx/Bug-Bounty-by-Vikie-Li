@@ -76,4 +76,4 @@ If the server takes XML input but does not return results in the response, you c
 3. Test with ports 80 and 443 to bypass firewall detection on target because it might not allow outbound connections on other ports and then You can then search the access logs of your server and look for a request
 to that particular file (typically a GET request of the requested file)</br>![image](https://github.com/user-attachments/assets/184051f7-beab-435f-8b56-81f60f8cbf4a)</br>
 4. Once confirmed that you can extract files, extract sensitive files from the server</br>
- 
+   0
