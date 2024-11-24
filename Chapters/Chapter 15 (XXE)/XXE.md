@@ -104,7 +104,11 @@ You can use XXEs to:
     Example 2: (returns AWS metadata)</br>
     ![image](https://github.com/user-attachments/assets/42b1337e-94a9-4c91-8dfd-c4f2530898c1)</br>
 3. Lauanch DoS attacks
-4. Use blind XXE
+    Example (this attack is called "billion laughs attack" or "xml bomb"):</br>
+    ![image](https://github.com/user-attachments/assets/c8e8eef7-8cf3-4903-9644-279100b7249d)
+    NOTE: this attack is considered XXE attack, although it does not involve the use of any external entities;</br>
+
+5. Use blind XXE
     1. First thought of blind XXE payload is
        ```
        <?xml version="1.0" encoding="UTF-8"?>
