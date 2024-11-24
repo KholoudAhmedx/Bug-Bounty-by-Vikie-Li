@@ -136,10 +136,24 @@ You can use XXEs to:
        Then you sumbit the same payload to the target to trigger the attack</br>
        ![image](https://github.com/user-attachments/assets/148677ba-cf6f-4cff-9c32-0604d62da746)</br>
        This malicious DTD will cause the parser to deliver the desired file contents as a File Not Found error:`java.io.FileNotFoundException: file:///nonexistent/FILE CONTENTS OF /etc/shadow`.
-
-
 >[!Note]
 >When trying to exfiltrate unintended data, check the page source or the http repsonse directly rather than the HTML page rendered by the browser as it might not be rendered correctly.</br>
+# More About Data Exfiltration Using XXEs
+XXE data exfiltration is complicated if the parser is hardened against XXE attacks and if you are accessing files of special formats.</br>
+If you are exfiltrating data from a file that contains XML special chars such as <>, ' , or '' -> it will break the DTD syntax or cause the attack to fail because it will be interpreted by the XML parser as special chars and will break the syntax.</br>
+For example: let's say we want to read password file from the server that is in xml format `password.xml`, this file contains definately special chars such as <> that will be interpreted by the XML parser and will break my syntax. So to bypass this we can use one of the following: 
+1. use `CDATA` tags, so whatever wrapped inside it will not be interpreted as special chars.</br>
+    ![image](https://github.com/user-attachments/assets/4ad2f4e2-2d61-4582-bf86-c84b1fd67f1a)</br>
+    Then, send your usual payload to the target to execute the attack</br>
+    ![image](https://github.com/user-attachments/assets/3f338f33-c7ef-4a0a-b214-3ff0e38b0975) </br>
+2. Use PHP wrappers -> converts the desired data to base-64 format, so you can bypass special chars </br>
+    ![image](https://github.com/user-attachments/assets/69ae4b18-a7c2-4499-b4f6-beabad0c1fb3)</br>
+3. Use FTP protocol -> can be used to send data directly while bypassin special chars restrictions</br>
+To use it: run a simple FTP server on your machine and modify your malicious DTD accordingly.</br>
+![image](https://github.com/user-attachments/assets/7bc82382-8f81-48a3-a870-a922086ebf64) </br>
+
+>[!Note]
+>You can use <a href="https://xmllint.com/">XMLLint</a> tool to make sure your XMl sytax is valid </br>
 
 
 
