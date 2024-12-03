@@ -22,3 +22,6 @@ Hard to find and exploit? because it tends to look different depending on the pr
 If an application takes a serialized object (e.g. data in json format) from the user and uses the data contained in to to authenticate users, the malicious user can tamper the serialized object to authenticate as someone else.</br>
 **Scenario #2:** </br>
 If the application uses unsafe deserialization, the malicious user can embed code snippets into the object that gets executed during deserialization.</br>
+
+>[!Note]
+>The best way to learn serialization and deserialization is to learn how different programming languages implement both.</br>
