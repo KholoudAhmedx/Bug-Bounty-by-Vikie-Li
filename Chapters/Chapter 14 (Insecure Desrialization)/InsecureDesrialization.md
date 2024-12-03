@@ -11,4 +11,5 @@ Hard to find and exploit? because it tends to look different depending on the pr
 **Benefits of Serialization:** </br>
 1. Some objects in programming languages are difficult to transfer across network or saved in a database without corrupution -> (complex data structures, need to be converted into a stream of bytes)</br>
    Example:</br>![image](https://github.com/user-attachments/assets/fa9637e7-7dca-4121-a9f2-ab09ca38ceb1)</br>
-2. 
+2. Allow programming languages to reconstruct identical program objects in different computing environments -> (save the state of the object for recreation without having to reprocess them)</br>
+
