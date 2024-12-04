@@ -68,6 +68,19 @@ One way the attacker can tamper serialized objects is when they are not encrypte
 
 ### How to get RCE?</br>
 First we need to understand how PHP creates and destroys objects.</br>
+Magic methods -> are methods in PHP that have special properties such as automatically run during specific point of execution or when certain conditions are met.</br>
+Two of these functions are : `__wakeup()` and `__destory()`.</br>
+`__wakeup()` -> is used during initialization when program creates an instance of a class in memory (which happens in the case of `unserialize()` function).
+`__destroy()` -> cleans up the object when no references is made to it.</br>
+
+So the process is as the following:</br>
+1. `unserialize()` reconstructs the object from the stream of bytes (string/serialized object)
+2. It looks for `__wakeup()` if it defined in the class of the object, to reconstruct any resources user has (e.g. database connections) and other reinitialization tasks
+3. The program operates on the object & use it to perform other actions
+4. When no references is made to the object, `__destroy()` cleans the object</br>
+
+The role of the attacker comes here: bothe `__wakeup()` and `__destroy()` has code in it to execute, and destroy has code and files associated to the object that it deletes so **maybe able to mess with the integrity of the filesystem by controlling the input passed into those functions.** </br>
+
 
 
 
