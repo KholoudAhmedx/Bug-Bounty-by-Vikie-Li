@@ -27,5 +27,38 @@ If the application uses unsafe deserialization, the malicious user can embed cod
 >The best way to learn serialization and deserialization is to learn how different programming languages implement both.</br>
 ## Insecure Deserialization in PHP
 Also called **PHP object injection** vulnerabilities.</br>
-**How PHP serializes and deserializes objects?** </br>
+### How PHP serializes and deserializes objects? </br>
+   PHP uses `serialize()` and `unserialize()` functions to achieve this task, so for example we have this code snippent: </br>
    
+       ```
+       <?php
+       class User{
+       public $username;
+       public $status;
+       }
+       $user = new User;
+       $user->username='vikie';
+       $user->status='not admin';
+       echo serialize($user);
+       ?>
+       ```
+   This will return this string `O:4:"User":2:{s:8:"username";s:6:"vickie";s:6:"status";s:9:"not admin";}` where 0 represents object instance, 4 represents length of object string ("User"), 2 represents number of properties of that object (in this case, username and status), s represents string value, and 8,6,9 represent the lenght of the strings; and you can refere to this image below for more info about how this string is created</br>
+       ![image](https://github.com/user-attachments/assets/35626ca3-f540-4d51-8b2e-076b0baa79f3) </br>
+       
+   >[!Note] The general format is `datatype:data`.</br>
+   
+And to deserialize objects, PHP can use `unseralize()` function to deserialize objects, so instead of echoing the serialized object as in the previous example, we can save the object in a variable, and pass it to the `unserialize()` function to deserialize it and then use a function like `var_dump()` to display the value of that deserialized object
+
+```
+   <?php
+$serialized_string = serialize($user);
+2 $unserialized_data = unserialize($serialized_string);
+3 var_dump($unserialized_data);
+var_dump($unserialized_data["status"]);
+?
+```
+</br>
+
+
+
+
