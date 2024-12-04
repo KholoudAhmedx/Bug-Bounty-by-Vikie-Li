@@ -59,8 +59,15 @@ var_dump($unserialized_data);
 The output will be:</br>![image](https://github.com/user-attachments/assets/d2b3521c-39ef-4f35-8b54-d19ca65f528e)</br>
 >[!Note]
 >If you used  `echo` to read the unserialized_data you will get an error, that tells you cannot convert object to string.</br>
-</br>
 
+### How to tamper serialized objects?</br>
+
+One way the attacker can tamper serialized objects is when they are not encrypted or signed, so as in the previous example when echoing the serialized object the attacker can tamper that object to do something malicious. For example if the application is using this serialized object directly to sign (authenticate) users without encryption, then the attacker can change the status of 'Vikie' user to be admin by intercepting the traffic and sending a file with the new object values, or send the object in the request directly and see if we get admin privileges.</br>
+
+![image](https://github.com/user-attachments/assets/e6eca483-6c72-4c51-a82c-792112752f8e) </br>
+
+### How to get RCE?</br>
+First we need to understand how PHP creates and destroys objects.</br>
 
 
 
