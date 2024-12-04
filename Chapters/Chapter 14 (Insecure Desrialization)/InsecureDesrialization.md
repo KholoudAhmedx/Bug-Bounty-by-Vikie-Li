@@ -25,3 +25,7 @@ If the application uses unsafe deserialization, the malicious user can embed cod
 
 >[!Note]
 >The best way to learn serialization and deserialization is to learn how different programming languages implement both.</br>
+## Insecure Deserialization in PHP
+Also called **PHP object injection** vulnerabilities.</br>
+**How PHP serializes and deserializes objects?** </br>
+   
