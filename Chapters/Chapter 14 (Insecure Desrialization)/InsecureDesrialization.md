@@ -47,16 +47,18 @@ Also called **PHP object injection** vulnerabilities.</br>
        
    >[!Note] The general format is `datatype:data`.</br>
    
-And to deserialize objects, PHP can use `unseralize()` function to deserialize objects, so instead of echoing the serialized object as in the previous example, we can save the object in a variable, and pass it to the `unserialize()` function to deserialize it and then use a function like `var_dump()` to display the value of that deserialized object
+And to deserialize objects, PHP can use `unseralize()` function to deserialize objects, so instead of echoing the serialized object as in the previous example, we can save the object in a variable, and pass it to the `unserialize()` function to deserialize it and then use a function like `var_dump()` to display the value of that deserialized object.
 
 ```
    <?php
 $serialized_string = serialize($user);
-2 $unserialized_data = unserialize($serialized_string);
-3 var_dump($unserialized_data);
-var_dump($unserialized_data["status"]);
+$unserialized_data = unserialize($serialized_string);
+var_dump($unserialized_data);
 ?
 ```
+The output will be:</br>![image](https://github.com/user-attachments/assets/d2b3521c-39ef-4f35-8b54-d19ca65f528e)</br>
+>[!Note]
+>If you used  `echo` to read the unserialized_data you will get an error, that tells you cannot convert object to string.</br>
 </br>
 
 
