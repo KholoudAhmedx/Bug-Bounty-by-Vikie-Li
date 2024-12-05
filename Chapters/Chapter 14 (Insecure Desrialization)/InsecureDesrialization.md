@@ -202,9 +202,33 @@ Notice that for java objects to be serializable, their classes need to implement
    • Look for their encoded version  as well.</br>
    
    NOTE:  serialized objects in Java are not human-readable as in PHP.</br>
-2. Try to manipulate program logic by tampering with information stored within the object.
-   
+2. Try to manipulate program logic by tampering with information stored within the object</br>
+### Achieving RCE in Java Appliactions
+You often need to use a series of gadgets to reach the desired method for code execution (similar to POP chains).</br>
+Note: in Java applications you'll find gadgets in the libraries loaded by the application.</br>
+**Cons:**</br>
+1. Time consuming
+2. Limited to the classes available to the application which can restrict what your exploit can do</br>
+**Solution?** Create exploit chains by using gadgets in popular libraries uch as the Apache
+Commons-Collections and more.</br>
+**OR** Use <a href="https://github.com/frohoff/ysoserial/">`Ysoserial` </a> tool to automate the process by generating payloads the exploit Java insecure deserialization bugs because it uses a collection of gadget chains discovered in common Java libraries to formulate exploit objects.</br>
 
+# Prevention
+No-one-size-fits-all solution exists, it depends on the programming language being used, serilization format and libraries used.</br>
+Possible methods:</br>
+1. Make sure you implement proper checks on user-supplied serialized objects
+2. Use simple datatypes such as strings and arrays instead of objects that need to be serialized when transporting them
+3. Use an allowlist to restrict deserialization to a small number of allowed classes
+4. Make sure your dependencies are up to data to prevent vulnerability in third parties
+5. Keep track of the session state on the server instead of relying on user input for session informatio</br>
 
-
+# Hunting for Insecure Deserialization
+1. Conduct a source code review (most reliable way to detect) look for `pickle.load()` in Python, `marshall.load()` in Ruby and `readObject()` in Java, `unserialize()` in PHP.
+2. If no source code provided, pay attention to large blobs of data passed into an application</br>
+   For example, the base64 string `Tzo0OiJVc2VyIjoyOntzOjg6InVzZX
+   JuYW1lIjtzOjY6InZpY2tpZSI7czo2OiJzdGF0dXMiO3M6OToibm90IGFkbWluIjt9` is the
+   base64-encoded version of the PHP serialized string `O:4:"User":2:{s:8:
+   "username";s:6:"vickie";s:6:"status";s:9:"not admin";}`
+3. Pay attention to the `Content-Type` header of an HTTP response and request
+4. Seek out features that are prone to deserialization flaws
 
