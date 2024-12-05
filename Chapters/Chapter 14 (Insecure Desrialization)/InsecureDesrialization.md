@@ -230,5 +230,5 @@ Possible methods:</br>
    base64-encoded version of the PHP serialized string `O:4:"User":2:{s:8:
    "username";s:6:"vickie";s:6:"status";s:9:"not admin";}`
 3. Pay attention to the `Content-Type` header of an HTTP response and request
-4. Seek out features that are prone to deserialization flaws
+4. Seek out features that are prone to deserialization flaws that might have to deserialize objectssupplied by the user, such as database inputs, authentication tokens,and HTML form parameters
 
