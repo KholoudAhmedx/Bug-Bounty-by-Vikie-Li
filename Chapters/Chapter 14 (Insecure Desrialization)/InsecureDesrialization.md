@@ -81,6 +81,39 @@ So the process is as the following:</br>
 
 The role of the attacker comes here: bothe `__wakeup()` and `__destroy()` has code in it to execute, and destroy has code and files associated to the object that it deletes so **maybe able to mess with the integrity of the filesystem by controlling the input passed into those functions.** </br>
 
+#### Example
+Assume the server has this vulnerable code that takes the value of a data cookie and unserializes it as shown below:</br>
+```
+   <?php
+   class Example2
+   {
+      private $hook;
+      function __wakeup(){
+         if(isset($this->hook)) eval($this->hook);
+      }
+   }
+
+   $userdata = unserialize($_COOKIE['data']);
+   ?>
+```
+Notice that this code has `__wakeup()` function that if the `hook` property is defined (not null), it will execute `eval()` function on it that takes the string passed to it and execute it as php code.</br>
+Since the value of data cookie is contollable, the attacker can pass a malicious serialized object into the data cookie to achieve RCE.</br>
+**HOW?**</br>
+1. Attacker creates serialized object as the following:</br>
+   ```
+   <?php
+   class Example2 {
+      private $hook = "phpinfo();";
+   }
+   print urlencode(serialize(new Example2));
+   ?>
+   ```
+   In this code, the attacker created a serialized object from class Example2 that initializes the value of `hook` property to be `phpinfo();`.Then this serialized object is being passed to `urlencode()` to encode it since it will be embeded inside a cookie value, so when this value is passed to the `unserialize()` function in the sever's code, this will happen:</br>
+   1. `unserialize()` reconstructs the object from class Example2 form the data cookie value
+   2. It then looks if there's `__wakeup()` method defined in the code and in this case it is, so it will excutes the code inside it that checks if hook is set then run eval, that will executes `phpinfo();` method and VOILA you've achieved RCE by running php code.</br>
+   
+
+
 
 
 
