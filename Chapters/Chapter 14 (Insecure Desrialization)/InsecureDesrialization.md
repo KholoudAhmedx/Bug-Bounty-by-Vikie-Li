@@ -146,6 +146,24 @@ This will execute `phpinfo()`, because we are called an undefined method called 
 >[!Note]
 >The exploitability of this magic method varies widly, depending on how it is implemented.
 > Sometimes attackers can exploit this magic method when the application’s code contains a mistake or when users are allowed to define a method name to call themselves.</br>
+### Another Way to Get RCE: POP Chains
+Why this method is introduced? because magic methods implemented in cod might not contain injection opporitunities.</br>
+**Property-oriented programming (POP)** chain -> is an exploitation technique that can be used to acheive RCE by taking advantage of desrialization vulnerabilities in PHP. </br>
+**Key idea**:
+1. Attacker takes control of all properties of deserialized objects and uses existing methods (gadegts) to chain malicious behavior.</br>
+**Gadgets:** are codesnippets that are borrowed from the codebase, meaning that it is not newly introduced.</br>
+POP chains use magic methods as their starting point.</br>
+**Example:**</br>
+![image](https://github.com/user-attachments/assets/fdfdae90-1643-4b10-b922-bc4fa9b2656d)</br>
+This code has deserialization vulnerability at line 5 , so the attacker can generate a code such as the following to exploit this vulnerability using POP chains.</br>
+![image](https://github.com/user-attachments/assets/8d1aefd1-19e2-452e-b204-967706f96226)</br>
+Notice that the attacker has created an Example class that has a construct function that initializes the `$obj` property with an instance of codesnippets class, that therefore, initializes the `$code` property to be the vulnerable php code `phpinfo();`;</br>
+Notice that the attacker’s serialized object uses class and property names found elsewhere in the application’s source code.</br>
+
+<mark>POP chains achieve RCE by chaining and reusing code found in the application’s codebase.</mark>
+
+
+
 
 
 
