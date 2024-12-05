@@ -112,6 +112,40 @@ Since the value of data cookie is contollable, the attacker can pass a malicious
    1. `unserialize()` reconstructs the object from class Example2 form the data cookie value
    2. It then looks if there's `__wakeup()` method defined in the code and in this case it is, so it will excutes the code inside it that checks if hook is set then run eval, that will executes `phpinfo();` method and VOILA you've achieved RCE by running php code.</br>
    
+#### Another magic methods
+There are 4 magic methods that can particulary useful in exploiting `unserialize()` vulnerability: `__wakeup()`, `__destroy()`,  `__call()` and `__toString()`, and there are more.</br>
+`__toString()` => is called when the object is treated as a string?</br>
+   For example when the object is passed to a function that is expecting a string such as `echo` and `print`. </br>
+   Example:</br>
+   ```
+   class Example{
+   public $name;
+   function __toString(){
+   return $this->name;
+   }
+   }
+   $user = new Example;
+   $user->name = "hello";
+   echo $user;
+   ```
+   Notice that if you don't explicitly defined the function `__toString()` you will get an error message that tells you could not be converted to string.</br>
+`__call()` => invoked when an undefined method is called.</br>
+Example of a vulerable code:</br>
+```
+class Demo{
+function __call($name,$args){
+eval($name.'();';
+}
+
+}
+$func = new Demo;
+$method = "phpinfo";
+$func->$method();
+```
+This will execute `phpinfo()`, because we are called an undefined method called `$method` in the previous code, so the `__call()` magic method is invoked.</br>
+>[!Note]
+>The exploitability of this magic method varies widly, depending on how it is implemented.
+> Sometimes attackers can exploit this magic method when the application’s code contains a mistake or when users are allowed to define a method name to call themselves.</br>
 
 
 
