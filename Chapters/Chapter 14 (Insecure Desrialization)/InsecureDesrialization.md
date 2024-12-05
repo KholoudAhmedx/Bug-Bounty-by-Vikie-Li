@@ -192,14 +192,14 @@ ois.close();
 }
 ```
 Notice that for java objects to be serializable, their classes need to implement `Serializable` interface & implement special methods `writeObject()` that is used to convert the object into a stream of bytes and write it to file and `readObject()` to reconstruct the object back from the stream of bytes saved in the file.</br>
-To exploit insecure desrialization in Java applications>>>
+**To exploit insecure desrialization in Java applications>>>**
 1. find entry point through which we will insert the malicious serialized object.</br>
    
    Seriazable objects are often used to transport data in HTTP headers, parameters, or cookies.</br>
    **Some signatures to know them:** </br>
-   • Starts with AC ED 00 05 in hex or rO0 in base64. (You might see these within HTTP requests as cookies or parameters.)
-   • The Content-Type header of an HTTP message is set to application/x-java-serialized-object
-   • Look for their encoded version  as well.
+   • Starts with AC ED 00 05 in hex or rO0 in base64. (You might see these within HTTP requests as cookies or parameters.)</br>
+   • The Content-Type header of an HTTP message is set to application/x-java-serialized-object</br>
+   • Look for their encoded version  as well.</br>
    
    NOTE:  serialized objects in Java are not human-readable as in PHP.</br>
 2. Try to manipulate program logic by tampering with information stored within the object.
