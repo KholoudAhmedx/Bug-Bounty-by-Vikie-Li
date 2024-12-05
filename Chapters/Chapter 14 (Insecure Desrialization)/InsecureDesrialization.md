@@ -161,10 +161,49 @@ Notice that the attacker has created an Example class that has a construct funct
 Notice that the attacker’s serialized object uses class and property names found elsewhere in the application’s source code.</br>
 
 <mark>POP chains achieve RCE by chaining and reusing code found in the application’s codebase.</mark>
-
-
-
-
+## Insecure Deserialization in Java
+Insecure deserialization happens in Java because many applications handle serialized objects.</br>
+### How Java serializes and deserializes objects? </br>
+Example code:</br>
+```
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.Serializable;
+import java.io.IOException;
+class User implements Serializable{
+public String username;
+}
+public class SerializeTest{
+public static void main(String args[]) throws Exception{
+User newUser = new User();
+newUser.username = "vickie";
+FileOutputStream fos = new FileOutputStream("object.ser");
+ObjectOutputStream os = new ObjectOutputStream(fos);
+os.writeObject(newUser);
+os.close();
+FileInputStream is = new FileInputStream("object.ser");
+ObjectInputStream ois = new ObjectInputStream(is);
+User storedUser = (User)ois.readObject();
+System.out.println(storedUser.username);
+ois.close();
+}
+}
+```
+Notice that for java objects to be serializable, their classes need to implement `Serializable` interface & implement special methods `writeObject()` that is used to convert the object into a stream of bytes and write it to file and `readObject()` to reconstruct the object back from the stream of bytes saved in the file.</br>
+To exploit insecure desrialization in Java applications>>>
+1. find entry point through which we will insert the malicious serialized object.</br>
+   
+   Seriazable objects are often used to transport data in HTTP headers, parameters, or cookies.</br>
+   **Some signatures to know them:** </br>
+   • Starts with AC ED 00 05 in hex or rO0 in base64. (You might see these within HTTP requests as cookies or parameters.)
+   • The Content-Type header of an HTTP message is set to application/x-java-serialized-object
+   • Look for their encoded version  as well.
+   
+   NOTE:  serialized objects in Java are not human-readable as in PHP.</br>
+2. Try to manipulate program logic by tampering with information stored within the object.
+   
 
 
 
