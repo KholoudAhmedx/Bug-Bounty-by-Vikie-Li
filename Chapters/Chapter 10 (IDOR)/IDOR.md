@@ -33,3 +33,9 @@ Application can prevent IDORs in two ways:</br>
 2. Application can use a unique, unpredictable key or a hashed identifier to reference each user's resources such as this one `https://example.com/messages?user_key=6MT9EalV9F7r9pns0mK1eDAEW` .</br>
 >[!Note]
 >Hashing IDs with a secure algorithm and a secret key makes it difficult for attackers to guess the hashed ID string. (isn't a complete protection against IDORs)</br>
+
+# Hunting for IDORs 
+The best way to hunt for IDORs is through source code review that checks if all direct object references are protected by access control. </br>
+If you cannot access source code, here's some tips to help you find them:</br>
+1. Create two accounts </br>
+**Explaination:**</br>
