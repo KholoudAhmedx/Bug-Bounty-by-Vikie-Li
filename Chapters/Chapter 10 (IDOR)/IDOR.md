@@ -19,3 +19,17 @@ An attacker can change the `user_id` to be something else for example, `1233` an
 ## Example 3 
 **IDORs and affecting resources other than database objects** </br>
 Assume we have a website that allows users to reference system files directly through a URL like this `https://example.com/uploads?file=user1234-01.jpeg` , a user can easily deduce that user-uploaded files has a naming convention `USER_ID-FILE_NUMBER.FILE_EXT` , therefore an attacker can access the uploaded files of another user as for example `user1233-01.jpeg` if the application doesn't restrict user's access to files that belong to another users.</br>
+
+# Prevention
+IDORs happen when an application fails at two things:</br>
+1. Implementing access control based on user's identity
+2. Randomizing object IDs and instead keep references to data entry or files, predictable
+</br>
+
+Application can prevent IDORs in two ways:</br>
+1. Application checks user's identity and permissions before granting access to a resource</br>
+  **Example:** </br>
+  Application checks if the user's session cookie corresponds to the `user_id` whose messages is being requested. 
+2. Application can use a unique, unpredictable key or a hashed identifier to reference each user's resources such as this one `https://example.com/messages?user_key=6MT9EalV9F7r9pns0mK1eDAEW` .</br>
+>[!Note]
+>Hashing IDs with a secure algorithm and a secret key makes it difficult for attackers to guess the hashed ID string. (isn't a complete protection against IDORs)</br>
