@@ -73,8 +73,39 @@ By following these steps, you can systematically identify IDOR vulnerabilities a
    - Therefore, you can load the conevrsations by providing the ids found.
 3. **Offer the application ID, even if it does not ask for one:**
    - Modern applications will depend on session cookies to identify users and therefore grant them access to resources as shown in the request below</br>![image](https://github.com/user-attachments/assets/9aba38ff-09be-41d9-8c56-3f0c39424d21) </br>
-
    - Despite this fact, some applications will provide alternative methods to access the resources using Object IDs.
    - Try to add `id` parameter to the request URL, to POST body parameters and see if it makes a difference to the application's behavoir.</br>![image](https://github.com/user-attachments/assets/8f6e5a79-6e04-41d8-97d1-f4ccc59a8601) </br>
+4. **Keep an eye out for blind IDORs:** 
+   - Sometimes application do not leak information directly in the http response.
+   - Information might be leaked elsewhere, in email box, in export files or text alerts maybe , so don't giveup so quickly when you find no change in the respone.
+5. **Change the request method:** 
+   - Applications often enable multiple request methods on the same endpoint but fail to implement the same access control for each method.
+   - For example, if a GET request is not vulnerable to IDORs, try to make it a DELET request and delete the resources of another user and so on.
+   - Switch GET request to POST and vice versa to see if any changes happen.
+   - ```
+     POST /get_receipt
+     (POST request body)
+      receipt_id=2983
+     ```
+     to be </br>
+     `GET /get_receipt?receipt_id=2983`
+6. **Change the requested file type:**
+   - Switching file type of requested file type sometimes lead the server to process authorization differently.
+   - Application might allow users to access files differenlty, either by using ID to reference a file or use the file name directly but they sometimes fail to implement the same access control.
+   - For example, if a request like this is blocked by the server `GET /get_receipt?receipt_id=2983` try this one `GET /get_receipt?receipt_id=2983.json` instead.</br>
+# Escalating the Attack
 
-      
+The impact of IDOR depends on the affected function, so to maximize the effect, look for IDORs in critical functionalities.</br>
+**Read-based IDORs** and **write-based IDORs** can be of high impact.</br>
+**In state-changing (write-based) IDORs, look for IDORs in (for example):**
+1. Password reset
+2. Password change
+3. Account recovery
+
+**In non-state-changing (read-based) IDORs, look for IDORs in (for example):**
+1. Functionalities that handle sensitive info:
+   1. Direct messages
+   2. Personal info
+   3. Private content </br>
+
+**You can combine IDORs with other vulnerabilities to maximize the impact.**
