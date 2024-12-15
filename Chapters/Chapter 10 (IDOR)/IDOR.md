@@ -68,5 +68,13 @@ By following these steps, you can systematically identify IDOR vulnerabilities a
    -  Otherwise, if the application is using randomized strings, see if they are predictable as some applications use algorithms that produce insufficient entropy.
    -  If this is the case, try to create a few accounts to analyze how these IDs are created as you might find a pattern that allows you to predict the IDs.
 2. **Leaked IDs:**
-   -
+   - It might be possible that the application leaks ID via another API endpoint or other public pages of the application that you can therefore use to launch IDOR attack.
+   - For example, there might be an endpoint that displays you messages of a specific id via this endpoint `www.example.com/messages?conversation_id==O1SUR7GJ43HS93VAR8xxxx` and another endpoint that lists the converstation ids of a specific user by visiting their homepages via this endpoint `www.example.com/messages?user_id=1234` (which is public).
+   - Therefore, you can load the conevrsations by providing the ids found.
+3. **Offer the application ID, even if it does not ask for one:**
+   - Modern applications will depend on session cookies to identify users and therefore grant them access to resources as shown in the request below</br>![image](https://github.com/user-attachments/assets/9aba38ff-09be-41d9-8c56-3f0c39424d21) </br>
+
+   - Despite this fact, some applications will provide alternative methods to access the resources using Object IDs.
+   - Try to add `id` parameter to the request URL, to POST body parameters and see if it makes a difference to the application's behavoir.</br>![image](https://github.com/user-attachments/assets/8f6e5a79-6e04-41d8-97d1-f4ccc59a8601) </br>
+
       
