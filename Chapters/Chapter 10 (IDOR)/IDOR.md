@@ -39,4 +39,9 @@ The best way to hunt for IDORs is through source code review that checks if all 
 If you cannot access source code, here's some tips to help you find them:</br>
 1. Create two accounts on the target webiste for each permission level, so for example, create two admin accounts, two regular user accounts and so on, where one serves as the attacker account (that launches the IDOR attack) and the other serves as the victim account (that shows the impact of the attack)
 2. Repeat the testing procedure without signing in, to see if unauthenticated session can access the functionalities and information made to legitimate users
-3. 
+3. Discover as many application features as possible, and focus on the features that returns user information (e.g. display messages of user based on user id) or modify user data (e.g. delete messages of a user) and note them for future reference
+4. Browse through each feature you found and capture all requests going from the client to the server, intercept each request carefully and find the parameters that contain numbers, usernames, or IDs
+5.  </br>
+
+>[!Note]
+>You can trigger IDORs from different locations within the request, like URL parameters, form fields, file paths, headers and cookies.</br>
