@@ -60,3 +60,13 @@ If you cannot access source code, here's some tips to help you find them:</br>
 By following these steps, you can systematically identify IDOR vulnerabilities and assess their impact.  
 >[!Note]
 >You can trigger IDORs from different locations within the request, like URL parameters, form fields, file paths, headers and cookies.</br>
+
+# Bypassing IDOR Protection
+1. **Look for encoded and hashed IDs:**
+   -  Try to decode seemingly random strings as most websites use encoding schemes that can be easily reversed.
+   -  If it worked, try to encode your false IDs and execute IDORs.
+   -  Otherwise, if the application is using randomized strings, see if they are predictable as some applications use algorithms that produce insufficient entropy.
+   -  If this is the case, try to create a few accounts to analyze how these IDs are created as you might find a pattern that allows you to predict the IDs.
+2. **Leaked IDs:**
+   -
+      
