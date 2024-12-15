@@ -37,5 +37,6 @@ Application can prevent IDORs in two ways:</br>
 # Hunting for IDORs 
 The best way to hunt for IDORs is through source code review that checks if all direct object references are protected by access control. </br>
 If you cannot access source code, here's some tips to help you find them:</br>
-1. Create two accounts </br>
-**Explaination:**</br>
+1. Create two accounts on the target webiste for each permission level, so for example, create two admin accounts, two regular user accounts and so on, where one serves as the attacker account (that launches the IDOR attack) and the other serves as the victim account (that shows the impact of the attack)
+2. Repeat the testing procedure without signing in, to see if unauthenticated session can access the functionalities and information made to legitimate users
+3. 
