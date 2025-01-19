@@ -18,7 +18,7 @@ Concurrency has two types:</br>
 
 **Scheduling:** is the process of arranging the sequence of execution of multiple threads.</br>
 There are differt scheduling algorithms depending on the system:</br>
-1. High priority scheduling
-2. Computational time scheduling</br>
+1.  Priority-based scheduling.  
+2. Round-Robin scheduling-> tasks take turns using the CPU, giving each one a fair share of time, regardless of priority.</br>
 
 **Flexible scheduling is what causes race conditons.** </br>
