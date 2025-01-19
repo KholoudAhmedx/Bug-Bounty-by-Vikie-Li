@@ -20,3 +20,5 @@ Concurrency has two types:</br>
 There are differt scheduling algorithms depending on the system:</br>
 1. High priority scheduling
 2. Computational time scheduling</br>
+
+**Flexible scheduling is what causes race conditons.** </br>
