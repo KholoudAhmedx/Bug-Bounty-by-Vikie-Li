@@ -46,3 +46,29 @@ Now if the two threads are running in parallel without consering the conflicts t
 7. Final result of A is (A = 1) </br>
 
 **Here race condition happens!**; because the outcome of execution one thread depends on the outcome of another thread.
+# When a Race Condition Becomes a Vulnerability
+Race condition becomes a vulenrability when it affects a security control mechanism where attackers can induce a situation in which a sensitive action executes before a security check is complete.</br>
+Assume your have two bank accounts; account A that has balance of $500 and account B that has balance of $0, and you want to transfer money from account A to account B. </br>
+**Process of transfering money involves three steps:** </br>
+1. Check if originating account has enough money to transfer
+2. Add money to the destination account
+3. Remove the same amount from the originating account</br>
+
+#### Assume you initiated two money trasfers of $500 from account A to account B at the same time. The ideal scenario is as the following:</br>
+1. Thread 1 check account A balance ($500) -> Balance of account A+B = $500
+2. Thread 1 add $500 to account B -> Balance of account A+B = $1000 (($500 in A, $500 in B)
+3. Thread 1 Deduct $500 from account A -> Balance of account A+B = $500 ($0 in A, $500 in B)
+4. Thread 2 check account A balance ($0) -> Balance of account A+B = $500 ($0 in A, $500 in B)
+5. Thread 2 transfer fails (low balance) -> Balance of account A+B = $500 ($0 in A, $500 in B) </br>
+
+**In this scenario, you end up with the correct amount of mony.** </br>
+
+#### But what if you can send the two requests simultaneously?</br>
+1. Thread 1 check account A balance ($500) -> Balance of account A+B = $500
+2. Thread 2 check account A balance ($500) -> Balance of account A+B = $500
+3. Thread 1 add $500 to account B -> Balance of account A+B = $1000 (($500 in A, $500 in B)
+4. Thread 2 add $500 to account B -> Balance of account A+B = $1500 ($500 in A , $1000 in B)
+5. Thread 1 Deduct $500 from account A ->  Balance of account A+B = $1000 ($0 in A, $1000 in B)
+6. Thread 2 Deduct $500 from account A ->  Balance of account A+B = $1000 ($0 in A, $1000 in B) </br>
+
+**In this scenario, you end up with more money than you started with.**
