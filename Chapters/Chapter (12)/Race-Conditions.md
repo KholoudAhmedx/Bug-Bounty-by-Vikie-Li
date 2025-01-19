@@ -21,4 +21,5 @@ There are differt scheduling algorithms depending on the system:</br>
 1.  Priority-based scheduling.  
 2. Round-Robin scheduling-> tasks take turns using the CPU, giving each one a fair share of time, regardless of priority.</br>
 
-**Flexible scheduling is what causes race conditons.** </br>
+**Flexible scheduling is what causes race conditons.Race conditions occur when developers don't follow proper rules for handling multiple threads working at the same time, which can lead to unexpected problems.** </br>
+Since scheduling swaps between the threads, it is hard to know the sequence of executing actions.
