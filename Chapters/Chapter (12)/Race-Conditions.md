@@ -81,3 +81,15 @@ Assume your have two bank accounts; account A that has balance of $500 and accou
 2. Be aware of built in synchronization mechanisms that most programming languages provide/support
 3. Follow secure coding practices -> (lowers the risk of complete system compromise)
     1. Pinciple of least privilege -> (the applications and processes should be granted only the privileges they need to complete their tasks)</br>
+
+# Hunting for Race Conditions 
+1. Find features prone to Race Conditions (subverts access controls, TOC-TOU vulns);
+   (e.g. features that deal with numbers; online voting, online gaming scores, bank transfers, e-commerce payments and gift card balance..)
+2. Send simultaneous requests via `curl` command and `&` character that is used to send commmands simultaneously in the background to test and exploit race conditions. You should craft requests that should be allowed once but not allowed
+multiple times.</br>
+![image](https://github.com/user-attachments/assets/6008fd2c-e9d0-4398-8458-e431f5ef69fa) </br>
+3. Check the results; (in the bank transfer example, if the destination account ended up having money more than you expected, then the attack succeeded)
+4. Create a proof of concept by providing reproduction steps
+
+# Escalating Race Conditions
+The severity of a race condition depends on the functionality it affects and the potential gains for an attacker. When assessing the impact, consider how much an attacker could benefit in terms of financial reward, social influence, or system compromise.
