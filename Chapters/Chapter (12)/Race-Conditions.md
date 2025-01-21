@@ -72,3 +72,12 @@ Assume your have two bank accounts; account A that has balance of $500 and accou
 6. Thread 2 Deduct $500 from account A ->  Balance of account A+B = $1000 ($0 in A, $1000 in B) </br>
 
 **In this scenario, you end up with more money than you started with.**
+>[!Note]
+> Most race condition vulnerabilities are exploited to manipulate mony, gift card credits, votes, social media likes, and can be used to bypass access controls and trigger other vulnerabilities.</br>
+
+# Prevention
+1. Follow synchronization mechanisms -> (only one process or thread can access a shared resource at a time)
+    1. Resource lock -> (when one thread acquires a lock, other threads attempting to access the same resource must wait until resource is released)
+2. Be aware of built in synchronization mechanisms that most programming languages provide/support
+3. Follow secure coding practices -> (lowers the risk of complete system compromise)
+    1. Pinciple of least privilege -> (the applications and processes should be granted only the privileges they need to complete their tasks)</br>
