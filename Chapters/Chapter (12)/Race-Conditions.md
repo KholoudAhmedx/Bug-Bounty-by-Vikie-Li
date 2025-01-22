@@ -12,6 +12,8 @@ Concurrency has two types:</br>
 |The ability to run multiple CPUs at the same time to perform simultaneous computations| The ability for a single CPU to provide multiple threads or concurrent executions|
 |![image](https://github.com/user-attachments/assets/28a3e8c9-a247-4805-978e-01822d820398) |![image](https://github.com/user-attachments/assets/8418629b-663f-427e-adb1-5f9ddee983ba)|
 
+### Types of Race Conditions
+1. Limit overrun -> type of race conditions that exceed some kind of limit imposed by business logic of application.
 >[!Note]
 >Threads don't run at the same time. Instead, they take turns using the CPU.
 >When one thread is waiting (like for user input), another thread can use the CPU to do its work. This way the CPU stays busy and resources aren't wasted.</br>
