@@ -65,6 +65,12 @@ The attacker can send a URL such as `https://example.com/uploads?file=../../../.
 3. Conduct penetration testing to try to find holes in the access policy or its implementation
 4. Make sure different ways for accessing a service has consistent access control mechanisms (access from mobile, desktop or api should implement the same mechanisms e.g., MFA) </br>
 
+# Hunting 
+1. Learn about the target, browse it as a regular user and learn about its features and functionalities because the more you understand the dev proccess, archticutre and business requirements of the app, the better you spot these vulnerabilities.
+2. Intercept requests while browsing the target and pay attention to any sensitive functionalities and notice if there are any additional headers are sent in the request.
+3. Think outside the box and use your creativity to think of ways to bypass access controls or interfere with application logic.
+4. Thinks of ways to combine the vulnerability you found with other vulnerabilities to maximize the impact.</br>
+
 
 
 
