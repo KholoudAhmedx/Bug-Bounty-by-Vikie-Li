@@ -42,11 +42,18 @@ Broken access control vulnerabilities are not limited to IDOR, there are differe
 - Exposed Admin Panel
 - Directory Traversal </br>
 ## Example 1: Exposed Admin Panel
+
 1. Applications sometimes forget or ignor to lock up sensitive functionalities depending on the fact that the functionality is not linked from the main app, or that they are hidden behind an obscure URL ` https://example.com/YWRtaW4/admin.php`.
   2. Attackers can use Google dorks or URL bruteforcing to access the admin panel.
 2. Applications sometimes do not implement the same access control for different functionalities, so if admin panel is accessed via those who provide valid credentials, stil attackers can send a request to it via an internal IP (trusted) so application doesn't ask for credentials.
 3. Attackers can bypass access controls by tampering cookies and headers, so if the application doesn't ask for credentials if the user provides a cookie `admin=1` in the request, then attackers can simply add them to access the admin panel without credentials
 4. Attackers can force their browsing past the access control points, so if the application login admins via this URL ` https://example.com/YWRtaW4/admin.php` and then redirects users to the ` https://example.com/YWRtaW4/dashboard.php`, attackers can access this endpoint directly without providing credentials if application does not implement access control against the `dashboard.php`. </br>
+
+## Example 2: Directory Traversal
+
+Directory traversal happens when attackers can view, modify and execute files they should not have access to by manipulating filepaths in user-input fields.</br>
+Assume an application has the functionality to upload files via this URL `https://example.com/uploads?file=example.jpg` and the application displays the file through this URL `/var/www/html/uploads/USERNAMR` and if the app does not implement proper input sanitization, the attackers can use the `../` sequence to access files on the system that they should not if the user who is hosting the web server has access to them.</br>
+The attacker can send a URL such as `https://example.com/uploads?file=../../../../etc/shadow` and can access the users' passwords on the system and even get a privilege escalation.</br>
 
 
 
