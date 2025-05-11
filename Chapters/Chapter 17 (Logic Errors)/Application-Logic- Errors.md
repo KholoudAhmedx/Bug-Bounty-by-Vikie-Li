@@ -49,11 +49,21 @@ Broken access control vulnerabilities are not limited to IDOR, there are differe
 3. Attackers can bypass access controls by tampering cookies and headers, so if the application doesn't ask for credentials if the user provides a cookie `admin=1` in the request, then attackers can simply add them to access the admin panel without credentials
 4. Attackers can force their browsing past the access control points, so if the application login admins via this URL ` https://example.com/YWRtaW4/admin.php` and then redirects users to the ` https://example.com/YWRtaW4/dashboard.php`, attackers can access this endpoint directly without providing credentials if application does not implement access control against the `dashboard.php`. </br>
 
-## Example 2: Directory Traversal
+## Example 2: Directory Traversal </br>
 
 Directory traversal happens when attackers can view, modify and execute files they should not have access to by manipulating filepaths in user-input fields.</br>
 Assume an application has the functionality to upload files via this URL `https://example.com/uploads?file=example.jpg` and the application displays the file through this URL `/var/www/html/uploads/USERNAMR` and if the app does not implement proper input sanitization, the attackers can use the `../` sequence to access files on the system that they should not if the user who is hosting the web server has access to them.</br>
 The attacker can send a URL such as `https://example.com/uploads?file=../../../../etc/shadow` and can access the users' passwords on the system and even get a privilege escalation.</br>
+
+# Prevention
+## Prevention against Application Logic Errors
+1. Perform test to make sure the application's logic works as intended (people who understands business requirements & dev process should conduct it)
+2. Carefully review each process for any logical error flaws that might lead to security issues. (conduct rigorous testing against each functionality critical to security issue)
+## Prevention against Broken Access Control
+1. Implement granular access control on all files and actions on the system
+2. Audit code that implements access controls for possible bypasses
+3. Conduct penetration testing to try to find holes in the access policy or its implementation
+4. Make sure different ways for accessing a service has consistent access control mechanisms (access from mobile, desktop or api should implement the same mechanisms e.g., MFA) </br>
 
 
 
