@@ -36,5 +36,18 @@ Assume there is a web application that implements the checkout process of an ite
 Since the application verifies the payment method only when it is new, and it does know that is a new method by noticing the `saved_card` parameter, the attacker can provide an invalid card number and use the `saved_card` paremeter to give the impression that the method is saved, and if the application is vulnerable, then it will not verify it and allow the attacker to buy unlimited items with an invalid credit number.</br>
 ![image](https://github.com/user-attachments/assets/96472a2e-56e7-46fc-8778-887f58bfb5a8)</br>
 
+# Broken Access Control
+
+Broken access control vulnerabilities are not limited to IDOR, there are different vulnerabilities that can be considered a broken access control vulnerability including:
+- Exposed Admin Panel
+- Directory Traversal </br>
+## Example 1: Exposed Admin Panel
+1. Applications sometimes forget or ignor to lock up sensitive functionalities depending on the fact that the functionality is not linked from the main app, or that they are hidden behind an obscure URL ` https://example.com/YWRtaW4/admin.php`.
+  2. Attackers can use Google dorks or URL bruteforcing to access the admin panel.
+2. Applications sometimes do not implement the same access control for different functionalities, so if admin panel is accessed via those who provide valid credentials, stil attackers can send a request to it via an internal IP (trusted) so application doesn't ask for credentials.
+3. Attackers can bypass access controls by tampering cookies and headers, so if the application doesn't ask for credentials if the user provides a cookie `admin=1` in the request, then attackers can simply add them to access the admin panel without credentials
+4. Attackers can force their browsing past the access control points, so if the application login admins via this URL ` https://example.com/YWRtaW4/admin.php` and then redirects users to the ` https://example.com/YWRtaW4/dashboard.php`, attackers can access this endpoint directly without providing credentials if application does not implement access control against the `dashboard.php`. </br>
+
+
 
 
